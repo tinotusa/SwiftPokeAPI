@@ -14,7 +14,7 @@ public enum PokeAPIError: Error {
     case invalidServerResponse(Int)
 }
 
-public final class PokeAPI {
+public final class PokeAPI: ObservableObject {
     public static var shared = PokeAPI()
     
     private let cache = NSCache<NSString, NSData>()
@@ -33,6 +33,8 @@ public final class PokeAPI {
         case pokemon = "pokemon"
         case language = "language"
         case berry = "berry"
+        case berryFirmness = "berry-firmness"
+        case berryFlavor = "berry-flavor"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
