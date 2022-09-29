@@ -35,6 +35,9 @@ public final class PokeAPI: ObservableObject {
         case berry = "berry"
         case berryFirmness = "berry-firmness"
         case berryFlavor = "berry-flavor"
+        case contestType = "contest-type"
+        case contestEffect = "contest-effect"
+        case superContestEffect = "super-contest-effect"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"

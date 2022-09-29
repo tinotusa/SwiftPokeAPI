@@ -17,5 +17,5 @@ public struct FlavorText: Codable {
     /// The language this name is in.
     public let language: NamedAPIResource
     /// The game version this flavor text is extracted from.
-    public let version: NamedAPIResource
+    public let version: NamedAPIResource?
 }
