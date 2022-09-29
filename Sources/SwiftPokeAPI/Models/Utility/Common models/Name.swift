@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Name: Codable {
+public struct Name: Codable {
     let name: String
     let language: NamedAPIResource
 }

@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Language: Codable, Identifiable {
-    let id: Int
+public struct Language: Codable, Identifiable {
+    public let id: Int
     let name: String
     let official: Bool
     let iso639: String
     let names: [Name]
 }
 
-extension Language {
+public extension Language {
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Language.self, endpoint: .language, name: name)
     }
