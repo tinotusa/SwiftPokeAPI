@@ -32,6 +32,7 @@ public final class PokeAPI {
     public enum Endpoint: String {
         case pokemon = "pokemon"
         case language = "language"
+        case berry = "berry"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
