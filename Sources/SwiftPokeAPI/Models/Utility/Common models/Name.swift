@@ -8,6 +8,6 @@
 import Foundation
 
 public struct Name: Codable {
-    let name: String
-    let language: NamedAPIResource
+    public let name: String
+    public let language: NamedAPIResource
 }

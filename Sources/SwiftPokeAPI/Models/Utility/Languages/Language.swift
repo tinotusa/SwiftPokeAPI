@@ -9,10 +9,10 @@ import Foundation
 
 public struct Language: Codable, Identifiable {
     public let id: Int
-    let name: String
-    let official: Bool
-    let iso639: String
-    let names: [Name]
+    public let name: String
+    public let official: Bool
+    public let iso639: String
+    public let names: [Name]
 }
 
 public extension Language {
