@@ -32,12 +32,18 @@ public final class PokeAPI: ObservableObject {
     public enum Endpoint: String {
         case pokemon = "pokemon"
         case language = "language"
+        // berry
         case berry = "berry"
         case berryFirmness = "berry-firmness"
         case berryFlavor = "berry-flavor"
+        // contest
         case contestType = "contest-type"
         case contestEffect = "contest-effect"
         case superContestEffect = "super-contest-effect"
+        // encounter
+        case encounterMethod = "encounter-method"
+        case encounterContition = "encounter-condition"
+        case encounterConditionValue = "encounter-condition-value"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
