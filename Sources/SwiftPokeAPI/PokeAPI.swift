@@ -64,6 +64,14 @@ public final class PokeAPI: ObservableObject {
         case region = "region"
         // machines
         case machine = "machine"
+        // moves
+        case move = "move"
+        case moveAilment = "move-ailment"
+        case moveBattleStyle = "move-battle-style"
+        case moveCategory = "move-category"
+        case moveDamageClass = "move-damage-class"
+        case moveLearnMethod = "move-learn-method"
+        case moveTarget = "move-target"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
