@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PokeAPI.swift
 //  
 //
 //  Created by Tino on 29/9/2022.
@@ -8,16 +8,24 @@
 import Foundation
 import os
 
+// TODO: add localized error
+public enum PokeAPIError: Error {
+    case invalidURL
+    case invalidServerResponse(Int)
+}
+
 public final class PokeAPI {
     public static var shared = PokeAPI()
     
     private let cache = NSCache<NSString, NSData>()
     private var logger = Logger(subsystem: "SwiftPokeAPI", category: "PokeAPI")
     private var urlSession = URLSession.shared
-    
+    private var decoder: JSONDecoder
     // TODO: add settings (should cache clear cache etc)
     
     private init() {
+        decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         logger.debug("PokeAPI init.")
     }
     
@@ -26,14 +34,7 @@ public final class PokeAPI {
         case language = "language"
     }
     
-    // TODO: add localized error
-    private enum PokeAPIError: Error {
-        case invalidURL
-        case invalidServerResponse(Int)
-    }
-    
     private let baseURL = "https://pokeapi.co/api/v2"
-    private var decoder = JSONDecoder()
     
     public func getData<T: Codable>(ofType type: T.Type, endpoint: Endpoint, name: String) async throws -> T {
         // TODO: construct url better
