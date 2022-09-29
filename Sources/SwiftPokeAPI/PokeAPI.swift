@@ -62,6 +62,8 @@ public final class PokeAPI: ObservableObject {
         case locationArea = "location-area"
         case palParkArea = "pal-park-area"
         case region = "region"
+        // machines
+        case machine = "machine"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
