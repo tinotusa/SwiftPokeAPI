@@ -57,6 +57,11 @@ public final class PokeAPI: ObservableObject {
         case itemAttribute = "item-attribute"
         case itemFlingEffect = "item-fling-effect"
         case itemPocket = "item-pocket"
+        // locations
+        case location = "location"
+        case locationArea = "location-area"
+        case palParkArea = "pal-park-area"
+        case region = "region"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
