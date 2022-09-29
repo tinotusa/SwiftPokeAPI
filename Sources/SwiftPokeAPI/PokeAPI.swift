@@ -47,6 +47,11 @@ public final class PokeAPI: ObservableObject {
         // evolution
         case evolutionChain = "evolution-chain"
         case evolutionTrigger = "evolution-trigger"
+        // games
+        case generation = "generation"
+        case pokedex = "pokedex"
+        case version = "version"
+        case versionGroup = "version-group"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
