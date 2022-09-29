@@ -44,6 +44,9 @@ public final class PokeAPI: ObservableObject {
         case encounterMethod = "encounter-method"
         case encounterContition = "encounter-condition"
         case encounterConditionValue = "encounter-condition-value"
+        // evolution
+        case evolutionChain = "evolution-chain"
+        case evolutionTrigger = "evolution-trigger"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
