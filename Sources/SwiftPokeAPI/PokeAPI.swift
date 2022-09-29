@@ -52,6 +52,11 @@ public final class PokeAPI: ObservableObject {
         case pokedex = "pokedex"
         case version = "version"
         case versionGroup = "version-group"
+        // items
+        case item = "item"
+        case itemAttribute = "item-attribute"
+        case itemFlingEffect = "item-fling-effect"
+        case itemPocket = "item-pocket"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
