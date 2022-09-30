@@ -30,7 +30,6 @@ public final class PokeAPI: ObservableObject {
     }
     
     public enum Endpoint: String {
-        case pokemon = "pokemon"
         case language = "language"
         // berry
         case berry = "berry"
@@ -72,6 +71,22 @@ public final class PokeAPI: ObservableObject {
         case moveDamageClass = "move-damage-class"
         case moveLearnMethod = "move-learn-method"
         case moveTarget = "move-target"
+        // pokemon
+        case abilities = "ability"
+        case characteristic = "characteristic"
+        case eggGroup = "egg-group"
+        case gender = "gender"
+        case growthRate = "growth-rate"
+        case nature = "nature"
+        case pokeathlonStat = "pokeathlon-stat"
+        case pokemon = "pokemon"
+        case pokemonColor = "pokemon-color"
+        case pokemonForm = "pokemon-form"
+        case pokemonHabitat = "pokemon-habitat"
+        case pokemonShape = "pokemon-shape"
+        case pokemonSpecies = "pokemon-species"
+        case stat = "stat"
+        case type = "type"
     }
     
     private let baseURL = "https://pokeapi.co/api/v2"
