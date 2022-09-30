@@ -8,108 +8,82 @@
 import Foundation
 import os
 
-// TODO: add localized error
-public enum PokeAPIError: Error {
-    case invalidURL
-    case invalidServerResponse(Int)
-}
-
+/// An object that gets data from [pokapi.co](https://pokeapi.co).
 public final class PokeAPI: ObservableObject {
+    /// The shared singleton pokeapi object.
     public static var shared = PokeAPI()
-    
+    /// The cache for pokeapi data.
     private let cache = NSCache<NSString, NSData>()
+    /// An object to log the state of the class.
     private var logger = Logger(subsystem: "SwiftPokeAPI", category: "PokeAPI")
+    /// The session used by the class.
     private var urlSession = URLSession.shared
+    /// The decoded used by the class.
     private var decoder: JSONDecoder
+
     // TODO: add settings (should cache clear cache etc)
-    
+    /// This shouldn't be called directly.
     private init() {
         decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         logger.debug("PokeAPI init.")
     }
-    
-    public enum Endpoint: String {
-        case language = "language"
-        // berry
-        case berry = "berry"
-        case berryFirmness = "berry-firmness"
-        case berryFlavor = "berry-flavor"
-        // contest
-        case contestType = "contest-type"
-        case contestEffect = "contest-effect"
-        case superContestEffect = "super-contest-effect"
-        // encounter
-        case encounterMethod = "encounter-method"
-        case encounterContition = "encounter-condition"
-        case encounterConditionValue = "encounter-condition-value"
-        // evolution
-        case evolutionChain = "evolution-chain"
-        case evolutionTrigger = "evolution-trigger"
-        // games
-        case generation = "generation"
-        case pokedex = "pokedex"
-        case version = "version"
-        case versionGroup = "version-group"
-        // items
-        case item = "item"
-        case itemAttribute = "item-attribute"
-        case itemFlingEffect = "item-fling-effect"
-        case itemPocket = "item-pocket"
-        // locations
-        case location = "location"
-        case locationArea = "location-area"
-        case palParkArea = "pal-park-area"
-        case region = "region"
-        // machines
-        case machine = "machine"
-        // moves
-        case move = "move"
-        case moveAilment = "move-ailment"
-        case moveBattleStyle = "move-battle-style"
-        case moveCategory = "move-category"
-        case moveDamageClass = "move-damage-class"
-        case moveLearnMethod = "move-learn-method"
-        case moveTarget = "move-target"
-        // pokemon
-        case abilities = "ability"
-        case characteristic = "characteristic"
-        case eggGroup = "egg-group"
-        case gender = "gender"
-        case growthRate = "growth-rate"
-        case nature = "nature"
-        case pokeathlonStat = "pokeathlon-stat"
-        case pokemon = "pokemon"
-        case pokemonColor = "pokemon-color"
-        case pokemonForm = "pokemon-form"
-        case pokemonHabitat = "pokemon-habitat"
-        case pokemonShape = "pokemon-shape"
-        case pokemonSpecies = "pokemon-species"
-        case stat = "stat"
-        case type = "type"
-    }
-    
-    private let baseURL = "https://pokeapi.co/api/v2"
-    
-    public func getData<T: Codable>(ofType type: T.Type, endpoint: Endpoint, name: String) async throws -> T {
-        // TODO: construct url better
-        guard let url = URL(string: "\(baseURL)/\(endpoint.rawValue)/\(name)") else {
-            logger.error("Error failed to create url from baseURL: \(self.baseURL) endpoint: \(endpoint.rawValue) and name: \(name).")
-            throw PokeAPIError.invalidURL
+}
+
+// MARK: Functions
+public extension PokeAPI {
+    /// Gets the decoded data of th egiven type.
+    /// - parameter type: The type of data to decode.
+    /// - parameter endpoint: The endpoint to get data from.
+    /// - parameter name: The name of the item to get.
+    /// - returns: The decoded type.
+    func getData<T: Codable>(
+        ofType type: T.Type,
+        endpoint: PokeAPIEndpoint,
+        name: String
+    ) async throws -> T {
+        logger.debug("Starting to get data of type: \(type), from endpoint: \(endpoint.rawValue), with name: \(name)")
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "pokeapi.co"
+        urlComponents.path = "/api/v2/\(endpoint.rawValue)/\(name)"
+
+        guard let url = urlComponents.url else {
+            logger.error("""
+                Error failed to create url from components:
+                scheme: \(urlComponents.scheme!) host: \(urlComponents.host!) \
+                path: \(urlComponents.path) endpoint: \(endpoint.rawValue)
+                """)
+            throw PokeAPIError.invalidURL(path: urlComponents.path)
         }
+
         do {
             let (data, urlResponse) = try await urlSession.data(from: url)
             if let httpURLResponse = urlResponse as? HTTPURLResponse,
                !(200 ..< 300).contains(httpURLResponse.statusCode)
             {
                 logger.error("Error got invalid reponse from server: \(httpURLResponse.statusCode).")
-                throw PokeAPIError.invalidServerResponse(httpURLResponse.statusCode)
+                throw PokeAPIError.invalidServerResponse(code: httpURLResponse.statusCode)
             }
             
             let decodedData = try decoder.decode(type, from: data)
+            logger.debug("Successfully got data with name: \(name), from endpoint: \(endpoint.rawValue).")
             return decodedData
+            
+        } catch DecodingError.dataCorrupted(_) {
+            let message = "Failed to decode data from \(url). The json is corrupted"
+            throw PokeAPIError.dataCorrupted(message: message)
+        } catch DecodingError.keyNotFound(let key, let context) {
+            let message = "Failed to decode data from \(url). \"\(key.stringValue)\" was not found - \(context.debugDescription)"
+            throw PokeAPIError.keyNotFound(message: message)
+        } catch DecodingError.typeMismatch(_, let context) {
+            let message = "Failed to decode data from \(url) due to type mismatch - \(context.debugDescription)"
+            throw PokeAPIError.typeMismatch(message: message)
+        } catch DecodingError.valueNotFound(let type, let context) {
+            let message = "Failed to decode data from \(url). \(type) value is missing - \(context.debugDescription)"
+            throw PokeAPIError.valueNotFound(message: message)
         } catch {
-            logger.error("Error failed to get data. \(error.localizedDescription)")
+            logger.error("Error failed to get data. \(error)")
             throw error
         }
     }
