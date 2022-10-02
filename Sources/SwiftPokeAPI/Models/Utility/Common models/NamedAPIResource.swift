@@ -9,7 +9,7 @@ import Foundation
 
 public struct NamedAPIResource: Codable {
     /// The name of the referenced resource.
-    public let name: String
+    public let name: String?
     /// The URL of the referenced resource.
     public let url: URL
 }
