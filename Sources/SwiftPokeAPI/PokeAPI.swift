@@ -88,18 +88,9 @@ public extension PokeAPI {
             logger.debug("Successfully got data with name: \(name), from endpoint: \(endpoint.rawValue).")
             return decodedData
             
-        } catch DecodingError.dataCorrupted(_) {
-            let message = "Failed to decode data from \(url). The json is corrupted"
-            throw PokeAPIError.dataCorrupted(message: message)
-        } catch DecodingError.keyNotFound(let key, let context) {
-            let message = "Failed to decode data from \(url). \"\(key.stringValue)\" was not found - \(context.debugDescription)"
-            throw PokeAPIError.keyNotFound(message: message)
-        } catch DecodingError.typeMismatch(_, let context) {
-            let message = "Failed to decode data from \(url) due to type mismatch - \(context.debugDescription)"
-            throw PokeAPIError.typeMismatch(message: message)
-        } catch DecodingError.valueNotFound(let type, let context) {
-            let message = "Failed to decode data from \(url). \(type) value is missing - \(context.debugDescription)"
-            throw PokeAPIError.valueNotFound(message: message)
+        } catch let error as DecodingError {
+            logger.error("Failed to decode data. \(error.localizedDescription)")
+            throw PokeAPIError.decodingError(error: error)
         } catch {
             logger.error("Error failed to get data. \(error)")
             throw error

@@ -13,17 +13,8 @@ public enum PokeAPIError: Error {
     case invalidURL(path: String)
     /// The server had a bad response.
     case invalidServerResponse(code: Int)
-    
-    // TODO: This seems redundant (decoding error does this already)
-    /// Data was corrupted or invalid.
-    case dataCorrupted(message: String)
-    /// Key was not found in json.
-    case keyNotFound(message: String)
-    /// Type found in json didn't match codable struct.
-    case typeMismatch(message: String)
-    /// An indiation that a non optional value was expected but
-    /// but null was found.
-    case valueNotFound(message: String)
+    /// An indication that the data couldn't be decoded.
+    case decodingError(error: DecodingError)
     /// An indication that a key was found but the type didn't match.
     case cacheDecodingError(key: String, type: Any.Type)
 }
@@ -37,14 +28,19 @@ extension PokeAPIError: CustomStringConvertible {
         case .invalidServerResponse(let code):
             return "The server had a bad response code: \(code)."
             
-        case .dataCorrupted(let message):
-            return message
-        case .keyNotFound(let message):
-            return message
-        case .typeMismatch(let message):
-            return message
-        case .valueNotFound(let message):
-            return message
+        case .decodingError(let error):
+            switch error {
+            case .typeMismatch(_, let context):
+                return "Failed to decode data due to type mismatch - \(context.debugDescription)"
+            case .valueNotFound(let type, let context):
+                return "Failed to decode data. \(type) value is missing - \(context.debugDescription)"
+            case .keyNotFound(let key, let context):
+                return "Failed to decode data. \"\(key.stringValue)\" was not found - \(context.debugDescription)"
+            case .dataCorrupted:
+                return "Failed to decode data. The json is corrupted"
+            @unknown default:
+                return "something when wrong"
+            }
         case .cacheDecodingError(let key, let type):
             return "Failed to decode type of \(type) from key: \(key)."
         }
@@ -59,14 +55,19 @@ extension PokeAPIError: LocalizedError {
             return "The url is invalid."
         case .invalidServerResponse(let code):
             return "Server error code: \(code)."
-        case .dataCorrupted(let message):
-            return message
-        case .keyNotFound(let message):
-            return message
-        case .typeMismatch(let message):
-            return message
-        case .valueNotFound(let message):
-            return message
+        case .decodingError(let error):
+            switch error {
+            case .typeMismatch(_, let context):
+                return "Failed to decode data due to type mismatch - \(context.debugDescription)"
+            case .valueNotFound(let type, let context):
+                return "Failed to decode data. \(type) value is missing - \(context.debugDescription)"
+            case .keyNotFound(let key, let context):
+                return "Failed to decode data. \"\(key.stringValue)\" was not found - \(context.debugDescription)"
+            case .dataCorrupted:
+                return "Failed to decode data. The json is corrupted"
+            @unknown default:
+                return "something when wrong"
+            }
         case .cacheDecodingError(let key, let type):
             return "Failed to decode type of \(type) from key: \(key)."
         }
@@ -78,14 +79,19 @@ extension PokeAPIError: LocalizedError {
             return "The url is not formed correctly."
         case .invalidServerResponse(_):
             return "The search parameter is not in the database or its a server error."
-        case .dataCorrupted(_):
-            return "The json data appears to be invalid."
-        case .keyNotFound(_):
-            return "A key that was expected wasn't found in the json."
-        case .typeMismatch(_):
-            return "Expected type didn't match the type in the json."
-        case .valueNotFound(_):
-            return "Expected value wasn't found in the json."
+        case .decodingError(let error):
+            switch error {
+            case .typeMismatch:
+                return "The types expected did not match."
+            case .valueNotFound:
+                return "Found an optional value when a non optional was expected."
+            case .keyNotFound:
+                return "Key waan't found in the json."
+            case .dataCorrupted:
+                return "The json is not formed correctly."
+            @unknown default:
+                return "something when wrong"
+            }
         case .cacheDecodingError(let key, let type):
             return "Found a value for key: \(key) in the cache but it couldn't be decoded to the given type: \(type)."
         }
@@ -100,15 +106,19 @@ extension PokeAPIError: LocalizedError {
                 Check that what is being searched for is valid. If it is an internal \
                 server error (500) there is nothing that can be done.
                 """
-            
-        case .dataCorrupted(_):
-            return "This is a server issue. Not much can be done."
-        case .keyNotFound(_):
-            return "Check that the key names match."
-        case .typeMismatch(_):
-            return "Check that the types match."
-        case .valueNotFound(_):
-            return "Check that the value being expected isn't null. If it is make the property optional."
+        case .decodingError(let error):
+            switch error {
+            case .typeMismatch:
+                return "Check that the types match."
+            case .valueNotFound:
+                return "Check that the value being expected isn't null. If it is make the property optional."
+            case .keyNotFound:
+                return "Check that the key names match."
+            case .dataCorrupted:
+                return "This is a server issue. Not much can be done."
+            @unknown default:
+                return "something when wrong"
+            }
         case .cacheDecodingError:
             return "Check that the key is unique."
         }
