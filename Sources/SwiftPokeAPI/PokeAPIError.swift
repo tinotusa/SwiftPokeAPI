@@ -14,6 +14,7 @@ public enum PokeAPIError: Error {
     /// The server had a bad response.
     case invalidServerResponse(code: Int)
     
+    // TODO: This seems redundant (decoding error does this already)
     /// Data was corrupted or invalid.
     case dataCorrupted(message: String)
     /// Key was not found in json.
@@ -23,6 +24,8 @@ public enum PokeAPIError: Error {
     /// An indiation that a non optional value was expected but
     /// but null was found.
     case valueNotFound(message: String)
+    /// An indication that a key was found but the type didn't match.
+    case cacheDecodingError(key: String, type: Any.Type)
 }
 
 // MARK: - CustomStringConvertible conformance
@@ -42,6 +45,8 @@ extension PokeAPIError: CustomStringConvertible {
             return message
         case .valueNotFound(let message):
             return message
+        case .cacheDecodingError(let key, let type):
+            return "Failed to decode type of \(type) from key: \(key)."
         }
     }
 }
@@ -62,6 +67,8 @@ extension PokeAPIError: LocalizedError {
             return message
         case .valueNotFound(let message):
             return message
+        case .cacheDecodingError(let key, let type):
+            return "Failed to decode type of \(type) from key: \(key)."
         }
     }
     
@@ -79,6 +86,8 @@ extension PokeAPIError: LocalizedError {
             return "Expected type didn't match the type in the json."
         case .valueNotFound(_):
             return "Expected value wasn't found in the json."
+        case .cacheDecodingError(let key, let type):
+            return "Found a value for key: \(key) in the cache but it couldn't be decoded to the given type: \(type)."
         }
     }
     
@@ -100,6 +109,8 @@ extension PokeAPIError: LocalizedError {
             return "Check that the types match."
         case .valueNotFound(_):
             return "Check that the value being expected isn't null. If it is make the property optional."
+        case .cacheDecodingError:
+            return "Check that the key is unique."
         }
     }
 }

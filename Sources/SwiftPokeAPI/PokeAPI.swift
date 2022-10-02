@@ -13,7 +13,7 @@ public final class PokeAPI: ObservableObject {
     /// The shared singleton pokeapi object.
     public static var shared = PokeAPI()
     /// The cache for pokeapi data.
-    private let cache = NSCache<NSString, NSData>()
+    private(set) var cache = Cache<String, Data>()
     /// An object to log the state of the class.
     private var logger = Logger(subsystem: "SwiftPokeAPI", category: "PokeAPI")
     /// The session used by the class.
@@ -21,8 +21,11 @@ public final class PokeAPI: ObservableObject {
     /// The decoded used by the class.
     private var decoder: JSONDecoder
 
-    // TODO: add settings (should cache clear cache etc)
-    /// This shouldn't be called directly.
+    // settings
+    /// A boolean value representing whether or not the data should be cached.
+    public var shouldCacheResults = true
+    
+    /// Creates new a PokeAPI object with the default settings.
     private init() {
         decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -43,11 +46,12 @@ public extension PokeAPI {
         name: String
     ) async throws -> T {
         logger.debug("Starting to get data of type: \(type), from endpoint: \(endpoint.rawValue), with name: \(name)")
+        
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "pokeapi.co"
         urlComponents.path = "/api/v2/\(endpoint.rawValue)/\(name)"
-
+        
         guard let url = urlComponents.url else {
             logger.error("""
                 Error failed to create url from components:
@@ -57,6 +61,16 @@ public extension PokeAPI {
             throw PokeAPIError.invalidURL(path: urlComponents.path)
         }
 
+        let cacheKey = url.relativePath
+        if let data = cache[cacheKey] {
+            do {
+                let decodedData = try decoder.decode(type, from: data)
+                logger.debug("Returning data from cache for key: \(cacheKey).")
+                return decodedData
+            } catch {
+                throw PokeAPIError.cacheDecodingError(key: cacheKey, type: type)
+            }
+        }
         do {
             let (data, urlResponse) = try await urlSession.data(from: url)
             if let httpURLResponse = urlResponse as? HTTPURLResponse,
@@ -67,6 +81,10 @@ public extension PokeAPI {
             }
             
             let decodedData = try decoder.decode(type, from: data)
+            if shouldCacheResults {
+                cache[cacheKey] = data
+                logger.debug("Added data to cache for key: \(cacheKey).")
+            }
             logger.debug("Successfully got data with name: \(name), from endpoint: \(endpoint.rawValue).")
             return decodedData
             
@@ -86,5 +104,18 @@ public extension PokeAPI {
             logger.error("Error failed to get data. \(error)")
             throw error
         }
+    }
+    
+    /// Clears the cache.
+    func clearCache() {
+        logger.error("clearCache not implemented.")
+    }
+    
+    /// The maximum number of object the cache should hold.
+    ///
+    /// The default is 0. Which means the cache can store as much as it can.
+    var countLimit: Int {
+        get { cache.countLimit }
+        set { cache.countLimit = newValue }
     }
 }

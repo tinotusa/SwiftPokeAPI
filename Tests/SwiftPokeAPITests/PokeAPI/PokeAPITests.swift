@@ -60,4 +60,27 @@ final class PokeAPITests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
+    
+    func testCacheAddsData() async {
+        do {
+            let name = "ditto"
+            let _ = try await Pokemon(name)
+            // This is to see that the log prints "Returning data from cache for key: <some key>"
+            let _ = try await Pokemon(name)
+            XCTAssertTrue(pokeAPI.cache.keys.count == 1)
+        } catch {
+            XCTFail("This isn't supposed to happen. Test is supposed to pass.")
+        }
+    }
+    
+    func testCacheDoesNotAddData() async {
+        pokeAPI.shouldCacheResults = false
+        do {
+            let name = "ditto"
+            let _ = try await Pokemon(name)
+            XCTAssertTrue(pokeAPI.cache.keys.count == 0)
+        } catch {
+            XCTFail("This isn't supposed to happen. Test is supposed to pass.")
+        }
+    }
 }
