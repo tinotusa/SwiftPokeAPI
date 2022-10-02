@@ -147,7 +147,7 @@ public extension Cache {
         let cacheURL = cachesDirectory.appending(path: filename)
         if !fileManager.fileExists(atPath: cacheURL.path()) {
             logger.error("Failed to get cache file size. The file \(filename) doesn't exist.)")
-            throw CacheError.fileDoesNotExist
+            throw CacheError.fileDoesNotExist(filename: filename)
         }
         do {
             let attributes = try fileManager.attributesOfItem(atPath: cacheURL.path())
@@ -226,7 +226,7 @@ extension Cache: Codable where Key: Codable, Value: Codable {
         
         do {
             if !fileManager.fileExists(atPath: fileURL.path()) {
-                throw CacheError.fileDoesNotExist
+                throw CacheError.fileDoesNotExist(filename: filename)
             }
             let data = try Data(contentsOf: fileURL)
             let decodedData = try JSONDecoder().decode(Self.self, from: data)
@@ -256,9 +256,9 @@ extension Cache: Codable where Key: Codable, Value: Codable {
             try data.write(to: fileURL, options: [.atomic, .completeFileProtection])
             logger.debug("Successfully saved cache with name: \(filename) to disk.")
             
-        } catch EncodingError.invalidValue(let value, let context){
-            let message = "Failed to encode \(value) - \(context.codingPath)"
-            throw CacheError.encodingError(message: message)
+        } catch let error as EncodingError {
+            logger.error("Failed to encode cache.")
+            throw CacheError.encodingError(error: error)
             
         } catch {
             logger.debug("Failed to save cache to disk with file name: \(filename). \(error)")
@@ -277,7 +277,7 @@ extension Cache: Codable where Key: Codable, Value: Codable {
         do {
             if !fileManager.fileExists(atPath: fileURL.path()) {
                 logger.error("Failed to remove file name: \(filename). File doesn't exist.")
-                throw CacheError.fileDoesNotExist
+                throw CacheError.fileDoesNotExist(filename: filename)
             }
             try fileManager.removeItem(at: fileURL)
             logger.debug("Successfully deleted cache named \(filename) from disk.")

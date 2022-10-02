@@ -39,7 +39,7 @@ extension PokeAPIError: CustomStringConvertible {
             case .dataCorrupted:
                 return "Failed to decode data. The json is corrupted"
             @unknown default:
-                return "something when wrong"
+                return "Unknown error."
             }
         case .cacheDecodingError(let key, let type):
             return "Failed to decode type of \(type) from key: \(key)."
@@ -66,7 +66,7 @@ extension PokeAPIError: LocalizedError {
             case .dataCorrupted:
                 return "Failed to decode data. The json is corrupted"
             @unknown default:
-                return "something when wrong"
+                return "Unknown error."
             }
         case .cacheDecodingError(let key, let type):
             return "Failed to decode type of \(type) from key: \(key)."
@@ -90,7 +90,7 @@ extension PokeAPIError: LocalizedError {
             case .dataCorrupted:
                 return "The json is not formed correctly."
             @unknown default:
-                return "something when wrong"
+                return "Unknown error."
             }
         case .cacheDecodingError(let key, let type):
             return "Found a value for key: \(key) in the cache but it couldn't be decoded to the given type: \(type)."
@@ -117,7 +117,7 @@ extension PokeAPIError: LocalizedError {
             case .dataCorrupted:
                 return "This is a server issue. Not much can be done."
             @unknown default:
-                return "something when wrong"
+                return "Unknown error. No suggestion available."
             }
         case .cacheDecodingError:
             return "Check that the key is unique."
