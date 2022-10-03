@@ -8,10 +8,17 @@
 import Foundation
 import os
 
+// TODO: Readme
+// TODO: Remake pokemon app (maybe not)
+
 /// An object that gets data from [pokapi.co](https://pokeapi.co).
 public final class PokeAPI: ObservableObject {
     /// The shared singleton pokeapi object.
     public static var shared = PokeAPI()
+    /// A boolean value representing whether or not the data should be cached.
+    public var shouldCacheResults = true
+    
+
     /// The cache for pokeapi data.
     private(set) var cache = Cache<String, Data>()
     /// An object to log the state of the class.
@@ -20,10 +27,6 @@ public final class PokeAPI: ObservableObject {
     private var urlSession = URLSession.shared
     /// The decoded used by the class.
     private var decoder: JSONDecoder
-
-    // settings
-    /// A boolean value representing whether or not the data should be cached.
-    public var shouldCacheResults = true
     
     /// Creates new a PokeAPI object with the default settings.
     private init() {
@@ -46,6 +49,8 @@ public extension PokeAPI {
         name: String
     ) async throws -> T {
         logger.debug("Starting to get data of type: \(type), from endpoint: \(endpoint.rawValue), with name: \(name)")
+        
+        let name = filteredName(name)
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -96,6 +101,7 @@ public extension PokeAPI {
             throw error
         }
     }
+    
     /// Returns a NamedAPIResourceList from the given endpoint.
     /// - parameter endpoint: The endpoint for the data
     /// - parameter limit: The max number of results to get.
@@ -103,6 +109,7 @@ public extension PokeAPI {
     /// - returns: A NamedAPIResourceList containing the first 0 ..< limit values.
     func getResourceList(_ endpoint: PokeAPIEndpoint, limit: Int, offset: Int) async throws -> NamedAPIResourceList {
         logger.debug("Starting to get resource list.")
+        
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "pokeapi.co"
@@ -147,10 +154,6 @@ public extension PokeAPI {
         }
     }
     
-    private func validStatusCode(_ statusCode: Int) -> Bool {
-        (200 ..< 300).contains(statusCode)
-    }
-    
     /// Clears the cache.
     func clearCache() {
         logger.error("clearCache not implemented.")
@@ -162,5 +165,31 @@ public extension PokeAPI {
     var countLimit: Int {
         get { cache.countLimit }
         set { cache.countLimit = newValue }
+    }
+}
+
+private extension PokeAPI {
+    /// Filteres the name given.
+    ///
+    /// Removes trailing white spaces, replaces all spaces in-between words with a hyphen, and
+    /// lowercases the string.
+    ///
+    /// - parameter name: The name to filter
+    /// - returns: The filtered name.
+    func filteredName(_ name: String) -> String {
+        let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "[\\s]+", with: "-", options: .regularExpression)
+            .lowercased()
+        
+        return name
+    }
+    /// Returns true if the given status code is valid (success).
+    ///
+    /// Checks that the status code is in-between 200 and 300
+    ///
+    /// - parameter statusCode: The status code of the reponse.
+    /// - returns: True if successful status code. False othewise.
+    func validStatusCode(_ statusCode: Int) -> Bool {
+        (200 ..< 300).contains(statusCode)
     }
 }
