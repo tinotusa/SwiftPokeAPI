@@ -24,4 +24,33 @@ public struct PokemonSprites: Codable {
     public let backFemale: URL?
     /// The shiny female depiction of this Pokémon from the back in battle.
     public let backShinyFemale: URL?
+    
+    public let other: OtherSprites
+}
+
+public struct OtherSprites: Codable {
+    public let officialArtwork: OfficialArtwork
+    public let dreamWorld: DreamWorldSprites
+    public let home: HomeSprites
+    
+    enum CodingKeys: String, CodingKey {
+        case officialArtwork = "official-artwork"
+        case dreamWorld
+        case home
+    }
+}
+
+public struct OfficialArtwork: Codable {
+    public let frontDefault: URL?
+}
+
+public struct DreamWorldSprites: Codable {
+    public let frontDefault: URL?
+    public let frontFemale: URL?
+}
+
+public struct HomeSprites: Codable {
+    public let frontDefault: URL?
+    public let frontFemale: URL?
+    public let frontShiny: URL?
 }
