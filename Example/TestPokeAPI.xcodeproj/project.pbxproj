@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		218C1C6228E532C500105750 /* SwiftPokeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 218C1C6128E532C500105750 /* SwiftPokeAPI */; };
+		219198D628EA7F28002C6379 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEC7D228E52A0B00E8F50F /* ContentView.swift */; };
 		21DEC7D128E52A0B00E8F50F /* TestPokeAPIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEC7D028E52A0B00E8F50F /* TestPokeAPIApp.swift */; };
-		21DEC7D328E52A0B00E8F50F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEC7D228E52A0B00E8F50F /* ContentView.swift */; };
 		21DEC7D528E52A0D00E8F50F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21DEC7D428E52A0D00E8F50F /* Assets.xcassets */; };
 		21DEC7D928E52A0D00E8F50F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21DEC7D828E52A0D00E8F50F /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -147,7 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21DEC7D328E52A0B00E8F50F /* ContentView.swift in Sources */,
+				219198D628EA7F28002C6379 /* ContentView.swift in Sources */,
 				21DEC7D128E52A0B00E8F50F /* TestPokeAPIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
