@@ -54,7 +54,7 @@ public extension NamedAPIResourceList {
     /// - parameter offest: The offset of the next page.
     init(_ endpoint: PokeAPIEndpoint, limit: Int = 20, offset: Int = 0) async throws {
         if limit <= 0 { throw NamedAPIResourceListError.invalidLimit(limit: limit) }
-        if offset <= 0 { throw NamedAPIResourceListError.invalidOffset(offset: offset) }
+        if offset < 0 { throw NamedAPIResourceListError.invalidOffset(offset: offset) }
         self = try await PokeAPI.shared.getResourceList(endpoint, limit: limit, offset: offset)
     }
 }
