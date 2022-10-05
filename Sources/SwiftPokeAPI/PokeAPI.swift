@@ -157,7 +157,7 @@ public extension PokeAPI {
     /// Returns a NamedAPIResourceList from the given url.
     /// - returns: A NamedAPIResourceList.
     func getResourceList(from url: URL) async throws -> NamedAPIResourceList {
-        let cacheKey = url.relativePath
+        let cacheKey = url.relativeString
         if let data = cache[cacheKey] {
             do {
                 let decodedResourceList = try decoder.decode(NamedAPIResourceList.self, from: data)
