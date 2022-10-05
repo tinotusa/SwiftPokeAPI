@@ -154,6 +154,39 @@ public extension PokeAPI {
         }
     }
     
+    /// Returns a NamedAPIResourceList from the given url.
+    /// - returns: A NamedAPIResourceList.
+    func getResourceList(from url: URL) async throws -> NamedAPIResourceList {
+        let cacheKey = url.relativePath
+        if let data = cache[cacheKey] {
+            do {
+                let decodedResourceList = try decoder.decode(NamedAPIResourceList.self, from: data)
+                return decodedResourceList
+            } catch let error as DecodingError {
+                throw PokeAPIError.decodingError(error: error)
+            }
+        }
+        
+        do {
+            let (data, urlResponse) = try await urlSession.data(from: url)
+            if let httpResponse = urlResponse as? HTTPURLResponse,
+               !validStatusCode(httpResponse.statusCode)
+            {
+                throw PokeAPIError.invalidServerResponse(code: httpResponse.statusCode)
+            }
+            
+            let decodedData = try decoder.decode(NamedAPIResourceList.self, from: data)
+            if shouldCacheResults {
+                cache[cacheKey] = data
+            }
+            return decodedData
+        } catch let error as DecodingError {
+            throw PokeAPIError.decodingError(error: error)
+        } catch {
+            throw error
+        }
+    }
+    
     /// Clears the cache.
     func clearCache() {
         logger.error("clearCache not implemented.")

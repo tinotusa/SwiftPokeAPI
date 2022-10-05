@@ -48,4 +48,17 @@ final class NamedAPIResourceListTests: XCTestCase {
             XCTFail("Failed to get resource list. \(error)")
         }
     }
+    
+    func testInitWithValidURL() async {
+        do {
+            let url = URL(string: "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20")!
+            let pokemonList = try await NamedAPIResourceList(url)
+            XCTAssertEqual(pokemonList.results.count, 20)
+        } catch NamedAPIResourceList.NamedAPIResourceListError.invalidLimit(let limit) {
+            XCTAssertTrue(true, "Failed to create resource list if invalid limit: \(limit).")
+        } catch {
+            XCTFail("Failed to get resource list. \(error)")
+        }
+    }
+
 }

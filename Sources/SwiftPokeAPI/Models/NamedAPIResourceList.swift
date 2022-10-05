@@ -57,4 +57,8 @@ public extension NamedAPIResourceList {
         if offset < 0 { throw NamedAPIResourceListError.invalidOffset(offset: offset) }
         self = try await PokeAPI.shared.getResourceList(endpoint, limit: limit, offset: offset)
     }
+    
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getResourceList(from: url)
+    }
 }
