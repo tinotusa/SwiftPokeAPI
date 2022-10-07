@@ -83,4 +83,13 @@ final class PokeAPITests: XCTestCase {
             XCTFail("This isn't supposed to happen. Test is supposed to pass.")
         }
     }
+    
+    func testFilteredName() {
+        let correctName = "test"
+        let name = "  \tTest \n "
+        let filteredName = PokeAPI.filteredName(name)
+        XCTAssertEqual(correctName, filteredName)
+        
+        XCTAssertEqual("te-st", PokeAPI.filteredName("Te \n\t st"))
+    }
 }

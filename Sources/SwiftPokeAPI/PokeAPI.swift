@@ -50,7 +50,7 @@ public extension PokeAPI {
     ) async throws -> T {
         logger.debug("Starting to get data of type: \(type), from endpoint: \(endpoint.rawValue), with name: \(name)")
         
-        let name = filteredName(name)
+        let name = Self.filteredName(name)
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -187,6 +187,21 @@ public extension PokeAPI {
         }
     }
     
+    /// Filteres the name given to match what pokeapi expects as valid input.
+    ///
+    /// Removes trailing white spaces, replaces all spaces in-between words with a hyphen, and
+    /// lowercases the string.
+    ///
+    /// - parameter name: The name to filter
+    /// - returns: The filtered name.
+    static func filteredName(_ name: String) -> String {
+        let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "[\\s]+", with: "-", options: .regularExpression)
+            .lowercased()
+        
+        return name
+    }
+    
     /// Clears the cache.
     func clearCache() {
         logger.error("clearCache not implemented.")
@@ -202,20 +217,6 @@ public extension PokeAPI {
 }
 
 private extension PokeAPI {
-    /// Filteres the name given.
-    ///
-    /// Removes trailing white spaces, replaces all spaces in-between words with a hyphen, and
-    /// lowercases the string.
-    ///
-    /// - parameter name: The name to filter
-    /// - returns: The filtered name.
-    func filteredName(_ name: String) -> String {
-        let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "[\\s]+", with: "-", options: .regularExpression)
-            .lowercased()
-        
-        return name
-    }
     /// Returns true if the given status code is valid (success).
     ///
     /// Checks that the status code is in-between 200 and 300
