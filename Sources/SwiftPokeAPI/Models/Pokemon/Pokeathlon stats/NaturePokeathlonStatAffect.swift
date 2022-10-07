@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NaturePokeathlonStatAffect: Codable {
+public struct NaturePokeathlonStatAffect: Codable, Hashable {
     /// The maximum amount of change to the referenced Pokéathlon stat.
     public let maxChange: Int
     /// The nature causing the change.

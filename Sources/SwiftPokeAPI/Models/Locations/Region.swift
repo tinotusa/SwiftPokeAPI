@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Region: Codable, Identifiable {
+public struct Region: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// A list of locations that can be found in this region.

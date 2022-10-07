@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VersionEncounterDetail: Codable {
+public struct VersionEncounterDetail: Codable, Hashable {
     /// The game version this encounter happens in.
     public let version: NamedAPIResource
     /// The total percentage of all encounter potential.

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SuperContestEffect: Codable, Identifiable {
+public struct SuperContestEffect: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The level of appeal this super contest effect has.

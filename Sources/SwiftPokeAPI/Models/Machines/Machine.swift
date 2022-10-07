@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Machine: Codable, Identifiable {
+public struct Machine: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The TM or HM item that corresponds to this machine.

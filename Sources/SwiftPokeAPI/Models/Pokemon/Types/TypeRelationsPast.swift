@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TypeRelationsPast: Codable {
+public struct TypeRelationsPast: Codable, Hashable {
     /// The last generation in which the referenced type had the listed damage relations.
     public let generation: NamedAPIResource
     /// The damage relations the referenced type had up to and including the listed generation.

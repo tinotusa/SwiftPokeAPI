@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonHeldItemVersion: Codable {
+public struct PokemonHeldItemVersion: Codable, Hashable {
     /// The version in which the item is held.
     public let version: NamedAPIResource
     /// How often the item is held.

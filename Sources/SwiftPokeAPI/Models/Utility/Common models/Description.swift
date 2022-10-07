@@ -5,7 +5,7 @@
 //  Created by Tino on 29/9/2022.
 //
 
-public struct Description: Codable {
+public struct Description: Codable, Hashable {
     /// The localized description for an API resource in a specific language.
     public let description: String
     /// The language this name is in.

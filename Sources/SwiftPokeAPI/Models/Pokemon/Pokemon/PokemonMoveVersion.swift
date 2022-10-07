@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonMoveVersion: Codable {
+public struct PokemonMoveVersion: Codable, Hashable {
     /// The method by which the move is learned.
     public let moveLearnMethod: NamedAPIResource
     /// The version group in which the move is learned.

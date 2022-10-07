@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ContestComboDetail: Codable {
+public struct ContestComboDetail: Codable, Hashable {
     /// A list of moves to use before this move.
     public let useBefore: [NamedAPIResource]?
     /// A list of moves to use after this move.

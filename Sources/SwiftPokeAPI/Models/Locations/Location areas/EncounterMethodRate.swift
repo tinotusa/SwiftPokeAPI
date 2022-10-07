@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EncounterMethodRate: Codable {
+public struct EncounterMethodRate: Codable, Hashable {
     /// The method in which Pokémon may be encountered in an area..
     public let  encounterMethod: NamedAPIResource
     /// The chance of the encounter to occur on a version of the game.

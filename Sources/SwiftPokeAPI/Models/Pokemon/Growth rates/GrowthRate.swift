@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GrowthRate: Codable, Identifiable {
+public struct GrowthRate: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.

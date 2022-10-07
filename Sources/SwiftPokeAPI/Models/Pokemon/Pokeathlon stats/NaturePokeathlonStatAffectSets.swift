@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NaturePokeathlonStatAffectSets: Codable {
+public struct NaturePokeathlonStatAffectSets: Codable, Hashable {
     /// A list of natures and how they change the referenced Pokéathlon stat.
     public let increase: [NaturePokeathlonStatAffect]
     /// A list of natures and how they change the referenced Pokéathlon stat.

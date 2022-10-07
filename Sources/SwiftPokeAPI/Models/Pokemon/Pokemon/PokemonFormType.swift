@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonFormType: Codable {
+public struct PokemonFormType: Codable, Hashable {
     /// The order the Pokémon's types are listed in.
     public let slot: Int
     /// The type the referenced Form has.

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NamedAPIResource: Codable {
+public struct NamedAPIResource: Codable, Hashable {
     /// The name of the referenced resource.
     public let name: String?
     /// The URL of the referenced resource.

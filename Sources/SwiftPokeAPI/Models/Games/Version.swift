@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Version: Codable, Identifiable {
+public struct Version: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.

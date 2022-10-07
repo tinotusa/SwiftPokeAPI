@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EvolutionChain: Codable, Identifiable {
+public struct EvolutionChain: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The item that a Pokémon would be holding when mating that would trigger

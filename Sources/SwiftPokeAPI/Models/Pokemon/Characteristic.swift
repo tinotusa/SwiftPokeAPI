@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Characteristic: Codable, Identifiable {
+public struct Characteristic: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The remainder of the highest stat/IV divided by 5.

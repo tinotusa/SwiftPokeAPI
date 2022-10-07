@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonFormSprites: Codable {
+public struct PokemonFormSprites: Codable, Hashable {
     /// The default depiction of this Pokémon form from the front in battle.
     public let frontDefault: URL?
     /// The shiny depiction of this Pokémon form from the front in battle.

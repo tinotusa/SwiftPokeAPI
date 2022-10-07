@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Encounter: Codable {
+public struct Encounter: Codable, Hashable {
     /// The lowest level the Pokémon could be encountered at.
     public let minLevel: Int
     /// The highest level the Pokémon could be encountered at.

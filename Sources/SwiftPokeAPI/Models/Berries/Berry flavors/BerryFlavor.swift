@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BerryFlavor: Codable, Identifiable {
+public struct BerryFlavor: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.

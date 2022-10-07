@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonSpeciesDexEntry: Codable {
+public struct PokemonSpeciesDexEntry: Codable, Hashable {
     /// The index number within the Pokédex.
     public let entryNumber: Int
     // The Pokédex the referenced Pokémon species can be found in.

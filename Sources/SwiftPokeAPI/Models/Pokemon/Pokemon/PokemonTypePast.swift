@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonTypePast: Codable {
+public struct PokemonTypePast: Codable, Hashable {
     /// The last generation in which the referenced pokémon had the listed types.
     public let generation: NamedAPIResource
     /// The types the referenced pokémon had up to and including the listed generation.

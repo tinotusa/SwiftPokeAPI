@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BerryFlavorMap: Codable {
+public struct BerryFlavorMap: Codable, Hashable {
     /// How powerful the referenced flavor is for this berry.
     public let potency: Int
     /// The referenced berry flavor.

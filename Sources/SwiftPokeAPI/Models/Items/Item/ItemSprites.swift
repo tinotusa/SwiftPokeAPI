@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ItemSprites: Codable {
+public struct ItemSprites: Codable, Hashable {
     /// The default depiction of this item.
     public let `default`: String
 }

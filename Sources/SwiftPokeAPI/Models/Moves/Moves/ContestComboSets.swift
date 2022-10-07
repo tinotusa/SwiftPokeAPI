@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ContestComboSets: Codable {
+public struct ContestComboSets: Codable, Hashable {
     /// A detail of moves this move can be used before or after,
     /// granting additional appeal points in contests.
     public let normal: ContestComboDetail

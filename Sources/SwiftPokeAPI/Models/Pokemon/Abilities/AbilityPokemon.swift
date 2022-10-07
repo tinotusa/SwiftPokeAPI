@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AbilityPokemon: Codable {
+public struct AbilityPokemon: Codable, Hashable {
     /// Whether or not this a hidden ability for the referenced Pokémon.
     public let isHidden: Bool
     /// Pokémon have 3 ability 'slots' which hold references to possible abilities

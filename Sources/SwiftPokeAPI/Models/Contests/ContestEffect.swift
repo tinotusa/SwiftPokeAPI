@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ContestEffect: Codable, Identifiable {
+public struct ContestEffect: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The base number of hearts the user of this move gets.

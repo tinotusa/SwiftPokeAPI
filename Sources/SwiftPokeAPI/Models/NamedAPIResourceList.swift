@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NamedAPIResourceList: Codable {
+public struct NamedAPIResourceList: Codable, Hashable {
     /// The total number of resources available from this API.
     public let count: Int
     /// The URL for the next page in the list.

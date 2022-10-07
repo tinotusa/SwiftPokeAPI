@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Location: Codable, Identifiable {
+public struct Location: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonShape: Codable, Identifiable {
+public struct PokemonShape: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.

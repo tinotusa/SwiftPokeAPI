@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AwesomeName: Codable {
+public struct AwesomeName: Codable, Hashable {
     /// The localized "scientific" name for an API resource in a specific language.
     public let awesomeName: String
     /// The language this "scientific" name is in.

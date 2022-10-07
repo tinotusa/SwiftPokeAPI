@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VerboseEffect: Codable {
+public struct VerboseEffect: Codable, Hashable {
     /// The localized effect text for an API resource in a specific language.
     public let effect: String
     /// The localized effect text in brief.

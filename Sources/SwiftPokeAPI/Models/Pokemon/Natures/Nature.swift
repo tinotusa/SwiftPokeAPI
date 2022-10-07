@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Nature: Codable, Identifiable {
+public struct Nature: Codable, Identifiable, Hashable {
     public let id: Int
     public let name: String
     public let decreasedStat: NamedAPIResource?

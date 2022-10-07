@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EncounterCondition: Codable, Identifiable {
+public struct EncounterCondition: Codable, Identifiable, Hashable {
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.

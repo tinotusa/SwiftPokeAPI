@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TypeRelations: Codable {
+public struct TypeRelations: Codable, Hashable {
     /// A list of types this type has no effect on.
     public let noDamageTo: [NamedAPIResource]
     /// A list of types this type is not very effect against.

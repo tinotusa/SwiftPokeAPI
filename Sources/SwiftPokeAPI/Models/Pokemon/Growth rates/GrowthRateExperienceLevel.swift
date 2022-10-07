@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct GrowthRateExperienceLevel: Codable {
+public struct GrowthRateExperienceLevel: Codable, Hashable {
     /// The level gained.
     public let level: Int
     /// The amount of experience required to reach the referenced level.

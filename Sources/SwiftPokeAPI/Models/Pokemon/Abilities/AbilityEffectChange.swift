@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AbilityEffectChange: Codable {
+public struct AbilityEffectChange: Codable, Hashable {
     /// The previous effect of this ability listed in different languages.
     public let effectEntries: [Effect]
     /// The version group in which the previous effect of this ability originated.

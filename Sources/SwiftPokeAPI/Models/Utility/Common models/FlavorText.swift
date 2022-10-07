@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FlavorText: Codable {
+public struct FlavorText: Codable, Hashable {
     /// The localized flavor text for an API resource in a specific language.
     /// Note that this text is left unprocessed as it is found in game files.
     /// This means that it contains special characters that one might want to
