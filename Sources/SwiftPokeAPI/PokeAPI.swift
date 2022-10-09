@@ -94,7 +94,7 @@ public extension PokeAPI {
             return decodedData
             
         } catch let error as DecodingError {
-            logger.error("Failed to decode data. \(error.localizedDescription)")
+            logger.error("Failed to decode data. \(error)")
             throw PokeAPIError.decodingError(error: error)
         } catch {
             logger.error("Error failed to get data. \(error)")

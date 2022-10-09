@@ -43,11 +43,15 @@ final class ItemTests: XCTestCase {
     
     func testInitWithValidIDs() async {
         await withTaskGroup(of: Void.self) { group in
-            for id in 1 ... 200 {
+            for id in 1 ... 1607 {
                 group.addTask {
                     do {
                         let item = try await Item("\(id)")
                         XCTAssertEqual(item.id, id)
+                    } catch PokeAPIError.invalidServerResponse(let code) {
+                        if code != 404 {
+                            XCTFail("Error with item id: \(id). error code: \(code)")
+                        }
                     } catch {
                         XCTFail("Error with item id: \(id).\n\(error)")
                     }
