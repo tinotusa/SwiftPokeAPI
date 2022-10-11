@@ -20,8 +20,20 @@ public struct Version: Codable, Identifiable, Hashable {
 
 public extension Version {
     /// Fetches a Version from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the Version.
+    /// - parameter name: The name of the Version.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .version, name: name)
+    }
+    
+    /// Fetches a Version from pokeapi.
+    /// - parameter id: The id of the Version.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a Version from pokeapi.
+    /// - parameter url: The url of the Version.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

@@ -20,8 +20,20 @@ public struct EvolutionTrigger: Codable, Identifiable, Hashable {
 
 public extension EvolutionTrigger {
     /// Fetches an EvolutionTrigger from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the EvolutionTrigger.
+    /// - parameter name: The name of the EvolutionTrigger.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .evolutionTrigger, name: name)
+    }
+    
+    /// Fetches a EvolutionTrigger from pokeapi.
+    /// - parameter id: The id of the EvolutionTrigger.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a EvolutionTrigger from pokeapi.
+    /// - parameter url: The url of the EvolutionTrigger.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

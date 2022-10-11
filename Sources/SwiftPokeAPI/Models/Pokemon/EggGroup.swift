@@ -20,8 +20,20 @@ public struct EggGroup: Codable, Identifiable, Hashable {
 
 public extension EggGroup {
     /// Fetches an EggGroup from pokeapi.
-    /// - parameter name: The name or id of the EggGroup.
+    /// - parameter name: The name of the EggGroup.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .eggGroup, name: name)
+    }
+    
+    /// Fetches an EggGroup from pokeapi.
+    /// - parameter id: The id of the EggGroup.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches an EggGroup from pokeapi.
+    /// - parameter url: The url of the EggGroup.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

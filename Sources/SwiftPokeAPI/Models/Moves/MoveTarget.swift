@@ -22,8 +22,20 @@ public struct MoveTarget: Codable, Identifiable, Hashable {
 
 public extension MoveTarget {
     /// Fetches a MoveTarget from pokeapi.
-    /// - parameter name: The name or id of a MoveTarget.
+    /// - parameter name: The name of a MoveTarget.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .moveTarget, name: name)
+    }
+    
+    /// Fetches a MoveTarget from pokeapi.
+    /// - parameter id: The id of the MoveTarget.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a MoveTarget from pokeapi.
+    /// - parameter url: The url of the MoveTarget.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

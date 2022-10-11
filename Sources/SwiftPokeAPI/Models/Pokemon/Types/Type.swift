@@ -32,8 +32,20 @@ public struct `Type`: Codable, Identifiable, Hashable {
 
 public extension `Type` {
     /// Fetches a Type from pokeapi.
-    /// - parameter name: The name or id a Type.
+    /// - parameter name: The name a Type.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .type, name: name)
+    }
+    
+    /// Fetches a Type from pokeapi.
+    /// - parameter id: The id of the Type.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a Type from pokeapi.
+    /// - parameter url: The url of the Type.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

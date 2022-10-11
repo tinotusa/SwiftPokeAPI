@@ -28,8 +28,20 @@ public struct VersionGroup: Codable, Identifiable, Hashable {
 
 public extension VersionGroup {
     /// Fetches a VersionGroup from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the VersionGroup.
+    /// - parameter name: The name of the VersionGroup.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .versionGroup, name: name)
+    }
+    
+    /// Fetches a VersionGroup from pokeapi.
+    /// - parameter id: The id of the VersionGroup.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a VersionGroup from pokeapi.
+    /// - parameter url: The url of the VersionGroup.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

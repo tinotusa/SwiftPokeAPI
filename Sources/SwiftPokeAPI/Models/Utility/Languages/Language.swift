@@ -25,9 +25,21 @@ public struct Language: Codable, Identifiable, Hashable {
 public extension Language {
     /// Fetches a Langauge based on the given name.
     ///
-    /// - parameter name: The name or id of the langauge.
+    /// - parameter name: The name of the langauge.
     /// - throws: Throws an Error if a language by the name (or id) couldn't be found.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Language.self, endpoint: .language, name: name)
+    }
+    
+    /// Fetches a Language from pokeapi.
+    /// - parameter id: The id of the Language.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a Language from pokeapi.
+    /// - parameter url: The url of the Language.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

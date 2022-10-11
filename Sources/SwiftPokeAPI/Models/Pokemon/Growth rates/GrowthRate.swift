@@ -24,8 +24,20 @@ public struct GrowthRate: Codable, Identifiable, Hashable {
 
 public extension GrowthRate {
     /// Fetches the GrowthRate of a pokemon from pokeapi.
-    /// - parameter name: The name or id of the GrowthRate.
+    /// - parameter name: The name of the GrowthRate.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .growthRate, name: name)
+    }
+    
+    /// Fetches a GrowthRate from pokeapi.
+    /// - parameter id: The id of the GrowthRate.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a GrowthRate from pokeapi.
+    /// - parameter url: The url of the GrowthRate.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

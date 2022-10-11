@@ -30,8 +30,20 @@ public struct Generation: Codable, Identifiable, Hashable {
 
 public extension Generation {
     /// Fetches a Generation from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the Generation.
+    /// - parameter name: The name of the Generation.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .generation, name: name)
+    }
+    
+    /// Fetches a Generation from pokeapi.
+    /// - parameter id: The id of the Generation.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a Generation from pokeapi.
+    /// - parameter url: The url of the Generation.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

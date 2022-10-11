@@ -20,8 +20,20 @@ public struct PokemonHabitat: Codable, Identifiable, Hashable {
 
 public extension PokemonHabitat {
     /// Fetches a PokemonHabitat from pokeapi.
-    /// - parameter name: The name or id of the PokemonHabitat.
+    /// - parameter name: The name of the PokemonHabitat.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .pokemonHabitat, name: name)
+    }
+    
+    /// Fetches a PokemonHabitat from pokeapi.
+    /// - parameter id: The id of the PokemonHabitat.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a PokemonHabitat from pokeapi.
+    /// - parameter url: The url of the PokemonHabitat.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

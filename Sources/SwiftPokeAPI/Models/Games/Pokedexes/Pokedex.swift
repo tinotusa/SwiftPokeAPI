@@ -28,8 +28,20 @@ public struct Pokedex: Codable, Identifiable, Hashable {
 
 public extension Pokedex {
     /// Fetches a Pokedex from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the pokedex.
+    /// - parameter name: The name of the pokedex.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .pokedex, name: name)
+    }
+    
+    /// Fetches a Pokedex from pokeapi.
+    /// - parameter id: The id of the Pokedex.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a Pokedex from pokeapi.
+    /// - parameter url: The url of the Pokedex.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

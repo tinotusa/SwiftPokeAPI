@@ -22,8 +22,20 @@ public struct MoveDamageClass: Codable, Identifiable, Hashable {
 
 public extension MoveDamageClass {
     /// Fetches a MoveDamageClass from pokeapi.
-    /// - parameter name: The name or id of a MoveDamageClass.
+    /// - parameter name: The name of a MoveDamageClass.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .moveDamageClass, name: name)
+    }
+    
+    /// Fetches a MoveDamageClass from pokeapi.
+    /// - parameter id: The id of the MoveDamageClass.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a MoveDamageClass from pokeapi.
+    /// - parameter url: The url of the MoveDamageClass.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

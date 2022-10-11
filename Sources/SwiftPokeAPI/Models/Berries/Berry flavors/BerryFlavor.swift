@@ -21,7 +21,21 @@ public struct BerryFlavor: Codable, Identifiable, Hashable {
 }
 
 public extension BerryFlavor {
+    /// Fetches a BerryFlavor from pokeapi.
+    /// - parameter name: The name of the BerryFlavor.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .berryFlavor, name: name)
+    }
+    
+    /// Fetches a BerryFlavor from pokeapi.
+    /// - parameter id: The id of the BerryFlavor.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a BerryFlavor from pokeapi.
+    /// - parameter url: The url of the BerryFlavor.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

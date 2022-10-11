@@ -25,4 +25,10 @@ public extension EvolutionChain {
     init(_ id: Int) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .evolutionChain, name: "\(id)")
     }
+    
+    /// Fetches an EvolutionChain from [pokeapi](https://pokeapi.co).
+    /// - parameter url: The url of the evolution chain.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
+    }
 }

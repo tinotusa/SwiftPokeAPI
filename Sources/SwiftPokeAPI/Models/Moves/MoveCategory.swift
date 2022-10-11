@@ -20,8 +20,20 @@ public struct MoveCategory: Codable, Identifiable, Hashable {
 
 public extension MoveCategory {
     /// Fetches a MoveCategory from pokeapi.
-    /// - parameter name: The name or id of the MoveCategory.
+    /// - parameter name: The name of the MoveCategory.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .moveCategory, name: name)
+    }
+    
+    /// Fetches a MoveCategory from pokeapi.
+    /// - parameter id: The id of the MoveCategory.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a MoveCategory from pokeapi.
+    /// - parameter url: The url of the MoveCategory.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

@@ -19,7 +19,21 @@ public struct ContestType: Codable, Identifiable, Hashable {
 }
 
 public extension ContestType {
+    /// Fetches a ContestType from pokeapi.
+    /// - parameter name: The name of the ContestType.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .contestType, name: name)
+    }
+    
+    /// Fetches a ContestType from pokeapi.
+    /// - parameter id: The id of the ContestType.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a ContestType from pokeapi.
+    /// - parameter url: The url of the ContestType.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

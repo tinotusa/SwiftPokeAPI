@@ -68,8 +68,20 @@ public struct PokemonSpecies: Codable, Identifiable, Hashable {
 
 public extension PokemonSpecies {
     /// Fetches a PokemonSpecies from pokeapi.
-    /// - parameter name: The name or id of a PokemonSpecies.
+    /// - parameter name: The name of a PokemonSpecies.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .pokemonSpecies, name: name)
+    }
+    
+    /// Fetches a PokemonSpecies from pokeapi.
+    /// - parameter id: The id of the PokemonSpecies.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a PokemonSpecies from pokeapi.
+    /// - parameter url: The url of the PokemonSpecies.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
