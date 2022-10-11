@@ -41,7 +41,7 @@ public extension PokeAPI {
     /// Gets the decoded data of th egiven type.
     /// - parameter type: The type of data to decode.
     /// - parameter endpoint: The endpoint to get data from.
-    /// - parameter name: The name of the item to get.
+    /// - parameter name: The name or url (as a String) of the item to get.
     /// - returns: The decoded type.
     func getData<T: Codable>(
         ofType type: T.Type,
@@ -50,12 +50,12 @@ public extension PokeAPI {
     ) async throws -> T {
         logger.debug("Starting to get data of type: \(type), from endpoint: \(endpoint.rawValue), with name: \(name)")
         
-        let name = Self.filteredName(name)
+        let filteredName = Self.filteredName(name)
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "pokeapi.co"
-        urlComponents.path = "/api/v2/\(endpoint.rawValue)/\(name)"
+        urlComponents.path = "/api/v2/\(endpoint.rawValue)/\(filteredName)"
         
         guard let url = urlComponents.url else {
             logger.error("""
@@ -65,7 +65,7 @@ public extension PokeAPI {
                 """)
             throw PokeAPIError.invalidURL(path: urlComponents.path)
         }
-
+        
         let cacheKey = url.relativePath
         if let data = cache[cacheKey] {
             do {
@@ -77,22 +77,15 @@ public extension PokeAPI {
             }
         }
         do {
-            let (data, urlResponse) = try await urlSession.data(from: url)
-            if let httpURLResponse = urlResponse as? HTTPURLResponse,
-               !(200 ..< 300).contains(httpURLResponse.statusCode)
-            {
-                logger.error("Error got invalid reponse from server: \(httpURLResponse.statusCode).")
-                throw PokeAPIError.invalidServerResponse(code: httpURLResponse.statusCode)
-            }
+            let data = try await getData(url: url)
             
-            let decodedData = try decoder.decode(type, from: data)
             if shouldCacheResults {
                 cache[cacheKey] = data
                 logger.debug("Added data to cache for key: \(cacheKey).")
             }
-            logger.debug("Successfully got data with name: \(name), from endpoint: \(endpoint.rawValue).")
-            return decodedData
             
+            let decodedData = try decoder.decode(type, from: data)
+            return decodedData
         } catch let error as DecodingError {
             logger.error("Failed to decode data. \(error)")
             throw PokeAPIError.decodingError(error: error)
@@ -100,6 +93,47 @@ public extension PokeAPI {
             logger.error("Error failed to get data. \(error)")
             throw error
         }
+    }
+    
+    /// Returns the data from the given url.
+    /// - parameter type: The type used to decode the data.
+    /// - parameter url: The url to download the data from.
+    /// - returns: The data decoded to the given type.
+    func getData<T: Codable>(ofType type: T.Type, url: URL) async throws -> T {
+        do {
+            let data = try await getData(url: url)
+            let cacheKey = url.relativePath
+            if shouldCacheResults {
+                cache[cacheKey] = data
+                logger.debug("Added data to cache for key: \(cacheKey).")
+            }
+            
+            let decodedData = try decoder.decode(type, from: data)
+            return decodedData
+        } catch let error as DecodingError {
+            logger.error("Failed to decode data. \(error)")
+            throw PokeAPIError.decodingError(error: error)
+        } catch {
+            logger.error("Error failed to get data. \(error)")
+            throw error
+        }
+    }
+    
+    /// Returns the data from the given url.
+    /// - parameter url: The url to download the data from
+    /// - returns: Data from the url
+    private func getData(url: URL) async throws -> Data {
+        let (data, urlResponse) = try await urlSession.data(from: url)
+        
+        if let httpURLResponse = urlResponse as? HTTPURLResponse,
+           !(200 ..< 300).contains(httpURLResponse.statusCode)
+        {
+            logger.error("Error got invalid reponse from server: \(httpURLResponse.statusCode).")
+            throw PokeAPIError.invalidServerResponse(code: httpURLResponse.statusCode)
+        }
+        
+        logger.debug("Successfully got data with url: \(url).")
+        return data
     }
     
     /// Returns a NamedAPIResourceList from the given endpoint.
