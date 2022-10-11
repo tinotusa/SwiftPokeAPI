@@ -61,8 +61,20 @@ public struct Move: Codable, Identifiable, Hashable {
 
 public extension Move {
     /// Fetches a Move from pokeapi.
-    /// - parameter name: The name or id of a Move.
+    /// - parameter name: The name of a Move.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .move, name: name)
+    }
+    
+    /// Fetches a Move from pokeapi.
+    /// - parameter id: The id of the Move.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a Move from pokeapi.
+    /// - parameter url: The url of the Move.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

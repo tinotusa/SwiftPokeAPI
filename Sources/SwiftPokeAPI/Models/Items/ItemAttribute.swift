@@ -22,8 +22,20 @@ public struct ItemAttribute: Codable, Identifiable, Hashable {
 
 public extension ItemAttribute {
     /// Fetches an ItemAttribute from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the ItemAttribute.
+    /// - parameter name: The name of the ItemAttribute.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .itemAttribute, name: name)
+    }
+    
+    /// Fetches an ItemAttribute from pokeapi.
+    /// - parameter id: The id of the ItemAttribute.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches an ItemAttribute from pokeapi.
+    /// - parameter url: The url of the ItemAttribute.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

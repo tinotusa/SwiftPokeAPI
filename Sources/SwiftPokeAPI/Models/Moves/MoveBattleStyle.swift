@@ -18,8 +18,20 @@ public struct MoveBattleStyle: Codable, Identifiable, Hashable {
 
 public extension MoveBattleStyle {
     /// Fetches a MoveBattleStyle from pokeapi.
-    /// - parameter name: The name or id of a MoveBattleStyle.
+    /// - parameter name: The name of a MoveBattleStyle.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .moveBattleStyle, name: name)
+    }
+    
+    /// Fetches a MoveBattleStyle from pokeapi.
+    /// - parameter id: The id of the MoveBattleStyle.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a MoveBattleStyle from pokeapi.
+    /// - parameter url: The url of the MoveBattleStyle.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

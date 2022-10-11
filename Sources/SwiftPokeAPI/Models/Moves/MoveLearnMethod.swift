@@ -22,8 +22,20 @@ public struct MoveLearnMethod: Codable, Identifiable, Hashable {
 
 public extension MoveLearnMethod {
     /// Fetchs a MoveLearnMethod from pokeapi.
-    /// - parameter name: The name or id of a MoveLearnMethod.
+    /// - parameter name: The name of a MoveLearnMethod.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .moveLearnMethod, name: name)
+    }
+    
+    /// Fetches a MoveLearnMethod from pokeapi.
+    /// - parameter id: The id of the MoveLearnMethod.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a MoveLearnMethod from pokeapi.
+    /// - parameter url: The url of the MoveLearnMethod.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

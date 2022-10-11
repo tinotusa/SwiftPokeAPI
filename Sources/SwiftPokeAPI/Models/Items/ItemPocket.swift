@@ -20,8 +20,20 @@ public struct ItemPocket: Codable, Identifiable, Hashable {
 
 public extension ItemPocket {
     /// Fetches an ItemPocket from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the ItemPocket.
+    /// - parameter name: The name of the ItemPocket.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .itemPocket, name: name)
+    }
+    
+    /// Fetches an ItemPocket from pokeapi.
+    /// - parameter id: The id of the ItemPocket.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches an ItemPocket from pokeapi.
+    /// - parameter url: The url of the ItemPocket.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

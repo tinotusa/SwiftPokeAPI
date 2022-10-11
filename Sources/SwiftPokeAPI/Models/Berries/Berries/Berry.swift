@@ -39,8 +39,14 @@ public struct Berry: Codable, Identifiable, Hashable {
 
 public extension Berry {
     /// Fetches a Berry from [PokeAPI](https://pokeapi.co) by the given name.
-    /// - parameter name: The name or id of the berry.
+    /// - parameter name: The name of the berry.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .berry, name: name)
+    }
+    
+    /// Fetches a Berry from [PokeAPI](https://pokeapi.co) by the given name.
+    /// - parameter url: The url of the berry.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

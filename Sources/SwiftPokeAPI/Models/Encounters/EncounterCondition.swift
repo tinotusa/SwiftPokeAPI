@@ -20,8 +20,20 @@ public struct EncounterCondition: Codable, Identifiable, Hashable {
 
 public extension EncounterCondition {
     /// Fetches an EncounterCondition from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the EncounterCondition.
+    /// - parameter name: The name of the EncounterCondition.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .encounterContition, name: name)
+    }
+    
+    /// Fetches a EncounterCondition from pokeapi.
+    /// - parameter id: The id of the EncounterCondition.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a EncounterCondition from pokeapi.
+    /// - parameter url: The url of the EncounterCondition.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

@@ -20,8 +20,20 @@ public struct EncounterMethod: Codable, Identifiable, Hashable {
 
 public extension EncounterMethod {
     /// Fetches the EncounterMethod from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the EncounterMethod
+    /// - parameter name: The name of the EncounterMethod
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .encounterMethod, name: name)
+    }
+    
+    /// Fetches an EncounterMethod from pokeapi.
+    /// - parameter id: The id of the EncounterMethod.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches an EncounterMethod from pokeapi.
+    /// - parameter url: The url of the EncounterMethod.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

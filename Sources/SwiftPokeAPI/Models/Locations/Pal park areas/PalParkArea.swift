@@ -20,8 +20,20 @@ public struct PalParkArea: Codable, Identifiable, Hashable {
 
 public extension PalParkArea {
     /// Fetches a PalParkArea from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the PalParkArea.
+    /// - parameter name: The name of the PalParkArea.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .palParkArea, name: name)
+    }
+    
+    /// Fetches a PalParkArea from pokeapi.
+    /// - parameter id: The id of the PalParkArea.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a PalParkArea from pokeapi.
+    /// - parameter url: The url of the PalParkArea.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }

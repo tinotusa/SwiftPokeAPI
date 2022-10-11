@@ -20,8 +20,20 @@ public struct ItemFlingEffect: Codable, Identifiable, Hashable {
 
 public extension ItemFlingEffect {
     /// Fetchs an ItemFlingEffect from [pokeapi](https://pokeapi.co).
-    /// - parameter name: The name or id of the ItemFlingEffect.
+    /// - parameter name: The name of the ItemFlingEffect.
     init(_ name: String) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .itemFlingEffect, name: name)
+    }
+    
+    /// Fetches a FlingEffect from pokeapi.
+    /// - parameter id: The id of the FlingEffect.
+    init(_ id: Int) async throws {
+        try await self.init("\(id)")
+    }
+    
+    /// Fetches a FlingEffect from pokeapi.
+    /// - parameter url: The url of the FlingEffect.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
