@@ -103,6 +103,16 @@ public extension PokeAPI {
         do {
             let data = try await getData(url: url)
             let cacheKey = url.relativePath
+            if let data = cache[cacheKey] {
+                do {
+                    let decodedData = try decoder.decode(type, from: data)
+                    logger.debug("Returning data from cache for key: \(cacheKey).")
+                    return decodedData
+                } catch {
+                    throw PokeAPIError.cacheDecodingError(key: cacheKey, type: type)
+                }
+            }
+            
             if shouldCacheResults {
                 cache[cacheKey] = data
                 logger.debug("Added data to cache for key: \(cacheKey).")
