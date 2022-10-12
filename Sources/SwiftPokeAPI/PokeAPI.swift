@@ -17,7 +17,8 @@ public final class PokeAPI: ObservableObject {
     public static var shared = PokeAPI()
     /// A boolean value representing whether or not the data should be cached.
     public var shouldCacheResults = true
-    
+    /// The name of the cache file on disk.
+    public var cacheFilename = "defaultPokeAPICache"
 
     /// The cache for pokeapi data.
     private(set) var cache = Cache<String, Data>()
@@ -229,9 +230,21 @@ public extension PokeAPI {
         return name
     }
     
-    /// Clears the cache.
+    /// Saves the in memory cache to disk.
+    /// - parameter filemanager: The filemanager to use.
+    func saveCacheToDisk(fileManager: FileManager = .default) throws {
+        try self.cache.saveCacheToDisk(withName: cacheFilename, fileManager: fileManager)
+    }
+    
+    /// Deletes the cache file on disk.
+    /// - parameter filemanager: The filemanager to use.
+    func deleteCacheFromDisk(fileManager: FileManager = .default) throws {
+        try self.cache.deleteCacheFromDisk(filename: cacheFilename, fileManager: fileManager)
+    }
+    
+    /// Clears the in memory cache.
     func clearCache() {
-        logger.error("clearCache not implemented.")
+        cache.clearCache()
     }
     
     /// The maximum number of object the cache should hold.

@@ -5,6 +5,7 @@
 //  Created by Tino on 29/9/2022.
 //
 
+import Foundation
 import XCTest
 @testable import SwiftPokeAPI
 
@@ -81,6 +82,50 @@ final class PokeAPITests: XCTestCase {
             XCTAssertTrue(pokeAPI.cache.keys.count == 0)
         } catch {
             XCTFail("This isn't supposed to happen. Test is supposed to pass.")
+        }
+    }
+    
+    func testCacheSavesToDiskSuccessfully() async {
+        pokeAPI.cacheFilename = "testCache"
+        do {
+            let somePokemonID = "1"
+            let _ = try await Pokemon(somePokemonID)
+            try pokeAPI.saveCacheToDisk()
+            let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+            let cachePath = cacheDirectory.appending(path: pokeAPI.cacheFilename)
+            XCTAssertTrue(FileManager.default.fileExists(atPath: cachePath.path()))
+        } catch {
+            XCTFail("Failed to save cache to disk. \(error)")
+        }
+    }
+    
+    func testCacheDeletesFromDiskSuccessfully() async {
+        pokeAPI.cacheFilename = "testCache"
+        do {
+            let somePokemonID = "1"
+            let _ = try await Pokemon(somePokemonID)
+            try pokeAPI.saveCacheToDisk()
+            
+            let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+            let cachePath = cacheDirectory.appending(path: pokeAPI.cacheFilename)
+            XCTAssertTrue(FileManager.default.fileExists(atPath: cachePath.path()))
+            
+            try pokeAPI.deleteCacheFromDisk()
+            XCTAssertFalse(FileManager.default.fileExists(atPath: cachePath.path()))
+        } catch {
+            XCTFail("Failed to save cache to disk. \(error)")
+        }
+    }
+    
+    func testCacheClearsSuccessFully() async {
+        do {
+            let pokemon = try await Pokemon("ditto")
+            XCTAssertEqual(pokeAPI.cache.keys.count, 1)
+            
+            pokeAPI.clearCache()
+            XCTAssertEqual(pokeAPI.cache.keys.count, 0)
+        } catch {
+            XCTFail("Failed to clear cache. \(error)")
         }
     }
     
