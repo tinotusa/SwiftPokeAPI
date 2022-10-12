@@ -128,6 +128,18 @@ final class PokeAPITests: XCTestCase {
         }
     }
     
+    func testCacheLoadsFromDiskSuccessfully() async {
+        pokeAPI.cacheFilename = "testCache"
+        do {
+            let pokemon = try await Pokemon("dragonite")
+            XCTAssertNoThrow(try pokeAPI.saveCacheToDisk())
+            XCTAssertNoThrow(try pokeAPI.loadCacheFromDisk())
+            XCTAssertEqual(pokeAPI.cache.keys.count, 1)
+        } catch {
+            XCTFail("Test was supposed to pass. \(error)")
+        }
+    }
+    
     func testCacheFailsToDeleteNonExistantFile() {
         pokeAPI.cacheFilename = "this doens't exist"
         XCTAssertThrowsError(try pokeAPI.deleteCacheFromDisk())
