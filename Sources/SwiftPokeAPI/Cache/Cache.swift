@@ -220,7 +220,10 @@ extension Cache: Codable where Key: Codable, Value: Codable {
     /// - parameter fileManager: The file manager to use.
     func loadCacheFromDisk(filename: String, fileManager: FileManager = .default) throws {
         logger.debug("Loading cache from disk.")
-        
+        let filename = filterFilename(filename: filename)
+        if filename.isEmpty {
+            throw PokeAPIError.invalidFilename
+        }
         let cachesDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         let fileURL = cachesDirectory.appending(path: filename)
         
@@ -242,11 +245,29 @@ extension Cache: Codable where Key: Codable, Value: Codable {
         }
     }
     
+    /// Filters a string by removing invalid characters.
+    /// - parameter filename: The name of the file to filter.
+    /// - returns: The filtered string.
+    private func filterFilename(filename: String) -> String {
+        var invalidCharacters = CharacterSet(charactersIn: ":/")
+        invalidCharacters.formUnion(.newlines)
+        invalidCharacters.formUnion(.illegalCharacters)
+        invalidCharacters.formUnion(.controlCharacters)
+        
+        return filename
+            .components(separatedBy: invalidCharacters)
+            .joined(separator: "")
+    }
+    
     /// Saves the cache to disk.
     /// - parameter filename: The name of the save file.
     /// - parameter fileManager: The file manager to use to save.
     func saveCacheToDisk(withName filename: String, fileManager: FileManager = .default) throws {
         logger.debug("Saving cache to disk with file name: \(filename).")
+        let filename = filterFilename(filename: filename)
+        if filename.isEmpty {
+            throw PokeAPIError.invalidFilename
+        }
         
         let cachesDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         let fileURL = cachesDirectory.appending(path: filename)

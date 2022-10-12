@@ -99,6 +99,17 @@ final class PokeAPITests: XCTestCase {
         }
     }
     
+    func testCacheSavesToDiskWithEmptyFilename() async {
+        pokeAPI.cacheFilename = ""
+        do {
+            let somePokemonID = "1"
+            let _ = try await Pokemon(somePokemonID)
+            XCTAssertThrowsError(try pokeAPI.saveCacheToDisk())
+        } catch {
+            XCTFail("Failed to save cache to disk. \(error)")
+        }
+    }
+    
     func testCacheDeletesFromDiskSuccessfully() async {
         pokeAPI.cacheFilename = "testCache"
         do {
@@ -117,9 +128,14 @@ final class PokeAPITests: XCTestCase {
         }
     }
     
+    func testCacheFailsToDeleteNonExistantFile() {
+        pokeAPI.cacheFilename = "this doens't exist"
+        XCTAssertThrowsError(try pokeAPI.deleteCacheFromDisk())
+    }
+    
     func testCacheClearsSuccessFully() async {
         do {
-            let pokemon = try await Pokemon("ditto")
+            let _ = try await Pokemon("ditto")
             XCTAssertEqual(pokeAPI.cache.keys.count, 1)
             
             pokeAPI.clearCache()

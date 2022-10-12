@@ -17,6 +17,8 @@ public enum PokeAPIError: Error {
     case decodingError(error: DecodingError)
     /// An indication that a key was found but the type didn't match.
     case cacheDecodingError(key: String, type: Any.Type)
+    /// The given file name was empty or invalid.
+    case invalidFilename
 }
 
 // MARK: - CustomStringConvertible conformance
@@ -43,6 +45,8 @@ extension PokeAPIError: CustomStringConvertible {
             }
         case .cacheDecodingError(let key, let type):
             return "Failed to decode type of \(type) from key: \(key)."
+        case .invalidFilename:
+            return "The file name was empty or invalid."
         }
     }
 }
@@ -70,6 +74,8 @@ extension PokeAPIError: LocalizedError {
             }
         case .cacheDecodingError(let key, let type):
             return "Failed to decode type of \(type) from key: \(key)."
+        case .invalidFilename:
+            return "The file name was empty or invalid."
         }
     }
     
@@ -94,6 +100,8 @@ extension PokeAPIError: LocalizedError {
             }
         case .cacheDecodingError(let key, let type):
             return "Found a value for key: \(key) in the cache but it couldn't be decoded to the given type: \(type)."
+        case .invalidFilename:
+            return "The file name was empty or invalid."
         }
     }
     
@@ -121,6 +129,8 @@ extension PokeAPIError: LocalizedError {
             }
         case .cacheDecodingError:
             return "Check that the key is unique."
+        case .invalidFilename:
+            return "Check that the file name is not empty."
         }
     }
 }
