@@ -129,23 +129,6 @@ public extension PokeAPI {
         }
     }
     
-    /// Returns the data from the given url.
-    /// - parameter url: The url to download the data from
-    /// - returns: Data from the url
-    private func getData(url: URL) async throws -> Data {
-        let (data, urlResponse) = try await urlSession.data(from: url)
-        
-        if let httpURLResponse = urlResponse as? HTTPURLResponse,
-           !(200 ..< 300).contains(httpURLResponse.statusCode)
-        {
-            logger.error("Error got invalid reponse from server: \(httpURLResponse.statusCode).")
-            throw PokeAPIError.invalidServerResponse(code: httpURLResponse.statusCode)
-        }
-        
-        logger.debug("Successfully got data with url: \(url).")
-        return data
-    }
-    
     /// Returns a NamedAPIResourceList from the given endpoint.
     /// - parameter endpoint: The endpoint for the data
     /// - parameter limit: The max number of results to get.
@@ -269,5 +252,22 @@ private extension PokeAPI {
     /// - returns: True if successful status code. False othewise.
     func validStatusCode(_ statusCode: Int) -> Bool {
         (200 ..< 300).contains(statusCode)
+    }
+    
+    /// Returns the data from the given url.
+    /// - parameter url: The url to download the data from
+    /// - returns: Data from the url
+    func getData(url: URL) async throws -> Data {
+        let (data, urlResponse) = try await urlSession.data(from: url)
+        
+        if let httpURLResponse = urlResponse as? HTTPURLResponse,
+           !(200 ..< 300).contains(httpURLResponse.statusCode)
+        {
+            logger.error("Error got invalid reponse from server: \(httpURLResponse.statusCode).")
+            throw PokeAPIError.invalidServerResponse(code: httpURLResponse.statusCode)
+        }
+        
+        logger.debug("Successfully got data with url: \(url).")
+        return data
     }
 }
