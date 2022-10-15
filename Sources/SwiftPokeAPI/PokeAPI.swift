@@ -67,7 +67,7 @@ public extension PokeAPI {
             throw PokeAPIError.invalidURL(path: urlComponents.path)
         }
         
-        let cacheKey = url.relativePath
+        let cacheKey = url.absoluteString
         if let data = cache[cacheKey] {
             do {
                 let decodedData = try decoder.decode(type, from: data)
@@ -103,7 +103,7 @@ public extension PokeAPI {
     func getData<T: Codable>(ofType type: T.Type, url: URL) async throws -> T {
         do {
             let data = try await getData(url: url)
-            let cacheKey = url.relativePath
+            let cacheKey = url.absoluteString
             if let data = cache[cacheKey] {
                 do {
                     let decodedData = try decoder.decode(type, from: data)
@@ -152,7 +152,7 @@ public extension PokeAPI {
             throw PokeAPIError.invalidURL(path: urlComponents.path)
         }
         
-        let cacheKey = url.relativePath
+        let cacheKey = url.absoluteString
         if let data = cache[cacheKey] {
             do {
                 let decodedResourceList = try decoder.decode(NamedAPIResourceList.self, from: data)
