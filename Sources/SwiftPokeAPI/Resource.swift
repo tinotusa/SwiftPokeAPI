@@ -39,6 +39,16 @@ public extension Resource {
         self.next = resourceList.next
         self.previous = resourceList.previous
     }
+    
+    /// Creates a resource from the given url.
+    /// - parameter url: The url for the resource
+    init(_ url: URL) async throws {
+        let resourceList = try await PokeAPI.shared.getData(ofType: NamedAPIResourceList.self, url: url)
+        let items: Set<T> = try await PokeAPI.shared.getItems(from: resourceList)
+        self.items = items
+        self.next = resourceList.next
+        self.previous = resourceList.previous
+    }
 }
 
 /// Error states for the Resource struct.

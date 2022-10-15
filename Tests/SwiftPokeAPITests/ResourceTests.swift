@@ -38,4 +38,15 @@ final class ResourceTests: XCTestCase {
             XCTFail("Failed to get resource. \(error)")
         }
     }
+    
+    func testResourceWithURL() async throws {
+        do {
+            let limit = 20
+            let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=\(limit)&offset=0")!
+            let resource = try await Resource<Pokemon>(url)
+            XCTAssertTrue(resource.items.count <= 20)
+        } catch {
+            XCTFail("Error test was supposed to pass. \(error)")
+        }
+    }
 }
