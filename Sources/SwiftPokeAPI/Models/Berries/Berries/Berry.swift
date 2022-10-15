@@ -50,3 +50,5 @@ public extension Berry {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Berry: SearchableByURL { }

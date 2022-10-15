@@ -45,3 +45,5 @@ public extension VersionGroup {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension VersionGroup: SearchableByURL { }

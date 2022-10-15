@@ -43,3 +43,5 @@ public extension Language {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Language: SearchableByURL { }

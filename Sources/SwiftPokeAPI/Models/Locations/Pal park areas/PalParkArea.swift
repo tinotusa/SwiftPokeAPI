@@ -37,3 +37,5 @@ public extension PalParkArea {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension PalParkArea: SearchableByURL { }

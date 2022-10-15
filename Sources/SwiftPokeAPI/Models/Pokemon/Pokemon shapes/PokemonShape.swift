@@ -39,3 +39,5 @@ public extension PokemonShape {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension PokemonShape: SearchableByURL { }

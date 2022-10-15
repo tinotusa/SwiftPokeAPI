@@ -47,3 +47,5 @@ public extension Stat {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Stat: SearchableByURL { }

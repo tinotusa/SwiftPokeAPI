@@ -45,3 +45,5 @@ public extension Pokedex {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Pokedex: SearchableByURL { }

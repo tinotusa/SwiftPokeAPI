@@ -47,3 +47,5 @@ public extension Generation {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Generation: SearchableByURL { }

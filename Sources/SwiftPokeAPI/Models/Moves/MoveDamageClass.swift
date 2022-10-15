@@ -39,3 +39,5 @@ public extension MoveDamageClass {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension MoveDamageClass: SearchableByURL { }

@@ -215,6 +215,26 @@ public extension PokeAPI {
         }
     }
     
+    /// Gets the items from a given resource list
+    /// - parameter resourceList: The NamedAPIResourceList to get the items from.
+    /// - returns: A set of items.
+    func getItems<T>(from resourceList: NamedAPIResourceList) async throws -> Set<T>
+        where T: Codable & Hashable & SearchableByURL
+    {
+        try await withThrowingTaskGroup(of: T.self) { group in
+            for resource in resourceList.results {
+                group.addTask {
+                    return try await T(resource.url)
+                }
+            }
+            var items = Set<T>()
+            for try await item in group {
+                items.insert(item)
+            }
+            return items
+        }
+    }
+    
     /// Filteres the name given to match what pokeapi expects as valid input.
     ///
     /// Removes trailing white spaces, replaces all spaces in-between words with a hyphen, and

@@ -37,3 +37,5 @@ public extension ItemFlingEffect {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension ItemFlingEffect: SearchableByURL { }

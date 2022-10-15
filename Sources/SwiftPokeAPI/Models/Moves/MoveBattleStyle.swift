@@ -35,3 +35,5 @@ public extension MoveBattleStyle {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension MoveBattleStyle: SearchableByURL { }

@@ -65,3 +65,5 @@ public extension Pokemon {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Pokemon: SearchableByURL { }

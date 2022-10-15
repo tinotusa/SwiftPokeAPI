@@ -45,3 +45,5 @@ public extension LocationArea {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension LocationArea: SearchableByURL { }

@@ -58,3 +58,5 @@ public extension PokemonForm {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension PokemonForm: SearchableByURL { }

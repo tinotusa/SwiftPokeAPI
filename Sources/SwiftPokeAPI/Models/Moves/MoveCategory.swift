@@ -37,3 +37,5 @@ public extension MoveCategory {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension MoveCategory: SearchableByURL { }

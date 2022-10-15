@@ -37,3 +37,5 @@ public extension ContestType {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension ContestType: SearchableByURL { }

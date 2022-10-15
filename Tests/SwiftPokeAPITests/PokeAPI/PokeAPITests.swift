@@ -62,6 +62,18 @@ final class PokeAPITests: XCTestCase {
         }
     }
     
+    func testGetItems() async throws {
+        do {
+            let limit = 20
+            let pokemonResourceList = try await NamedAPIResourceList(.pokemon, limit: limit)
+            let pokemon: Set<Pokemon> = try await pokeAPI.getItems(from: pokemonResourceList)
+            XCTAssertTrue(pokemon.count <= limit)
+        } catch {
+            XCTFail("Error test was supposed to pass. \(error)")
+        }
+    }
+    
+    // MARK: - Cache tests
     func testCacheAddsData() async {
         do {
             let name = "ditto"
@@ -131,7 +143,7 @@ final class PokeAPITests: XCTestCase {
     func testCacheLoadsFromDiskSuccessfully() async {
         pokeAPI.cacheFilename = "testCache"
         do {
-            let pokemon = try await Pokemon("dragonite")
+            let _ = try await Pokemon("dragonite")
             XCTAssertNoThrow(try pokeAPI.saveCacheToDisk())
             XCTAssertNoThrow(try pokeAPI.loadCacheFromDisk())
             XCTAssertEqual(pokeAPI.cache.keys.count, 1)

@@ -37,3 +37,5 @@ public extension Gender {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Gender: SearchableByURL { }

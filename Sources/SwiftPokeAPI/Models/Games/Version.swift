@@ -37,3 +37,5 @@ public extension Version {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Version: SearchableByURL { }

@@ -41,3 +41,5 @@ public extension GrowthRate {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension GrowthRate: SearchableByURL { }

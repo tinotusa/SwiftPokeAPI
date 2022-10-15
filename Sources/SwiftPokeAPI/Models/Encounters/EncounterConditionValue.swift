@@ -37,3 +37,5 @@ public extension EncounterConditionValue {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension EncounterConditionValue: SearchableByURL { }

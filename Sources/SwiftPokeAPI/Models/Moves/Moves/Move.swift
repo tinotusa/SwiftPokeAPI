@@ -78,3 +78,5 @@ public extension Move {
         self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
     }
 }
+
+extension Move: SearchableByURL { }
