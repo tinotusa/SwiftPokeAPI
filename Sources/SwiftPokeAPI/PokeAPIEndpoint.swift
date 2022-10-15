@@ -32,6 +32,7 @@ public enum PokeAPIEndpoint: String {
     // items
     case item = "item"
     case itemAttribute = "item-attribute"
+    case itemCategory = "item-category"
     case itemFlingEffect = "item-fling-effect"
     case itemPocket = "item-pocket"
     // locations
