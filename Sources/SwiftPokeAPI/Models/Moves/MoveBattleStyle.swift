@@ -36,4 +36,8 @@ public extension MoveBattleStyle {
     }
 }
 
-extension MoveBattleStyle: SearchableByURL { }
+extension MoveBattleStyle: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .moveBattleStyle
+    }
+}

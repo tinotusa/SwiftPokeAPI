@@ -50,4 +50,8 @@ public extension `Type` {
     }
 }
 
-extension `Type`: SearchableByURL { }
+extension `Type`: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .type
+    }
+}

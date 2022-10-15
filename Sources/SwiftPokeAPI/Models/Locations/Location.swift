@@ -42,4 +42,8 @@ public extension Location {
     }
 }
 
-extension Location: SearchableByURL { }
+extension Location: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .location
+    }
+}

@@ -38,4 +38,8 @@ public extension BerryFirmness {
     }
 }
 
-extension BerryFirmness: SearchableByURL { }
+extension BerryFirmness: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .berryFirmness
+    }
+}

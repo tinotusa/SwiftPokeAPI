@@ -40,4 +40,8 @@ public extension MoveLearnMethod {
     }
 }
 
-extension MoveLearnMethod: SearchableByURL { }
+extension MoveLearnMethod: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .moveLearnMethod
+    }
+}

@@ -40,4 +40,8 @@ public extension MoveDamageClass {
     }
 }
 
-extension MoveDamageClass: SearchableByURL { }
+extension MoveDamageClass: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .moveDamageClass
+    }
+}

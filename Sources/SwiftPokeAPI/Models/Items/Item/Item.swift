@@ -60,4 +60,8 @@ public extension Item {
     }
 }
 
-extension Item: SearchableByURL { }
+extension Item: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .item
+    }
+}

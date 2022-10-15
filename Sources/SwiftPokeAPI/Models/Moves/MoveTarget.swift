@@ -40,4 +40,8 @@ public extension MoveTarget {
     }
 }
 
-extension MoveTarget: SearchableByURL { }
+extension MoveTarget: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .moveTarget
+    }
+}

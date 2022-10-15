@@ -59,4 +59,8 @@ public extension PokemonForm {
     }
 }
 
-extension PokemonForm: SearchableByURL { }
+extension PokemonForm: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokemonForm
+    }
+}

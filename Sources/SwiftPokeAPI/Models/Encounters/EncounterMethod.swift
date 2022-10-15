@@ -38,4 +38,8 @@ public extension EncounterMethod {
     }
 }
 
-extension EncounterMethod: SearchableByURL { }
+extension EncounterMethod: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .encounterMethod
+    }
+}

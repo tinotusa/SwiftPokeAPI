@@ -38,4 +38,8 @@ public extension Gender {
     }
 }
 
-extension Gender: SearchableByURL { }
+extension Gender: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .gender
+    }
+}

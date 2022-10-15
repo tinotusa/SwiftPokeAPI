@@ -38,4 +38,8 @@ public extension EncounterConditionValue {
     }
 }
 
-extension EncounterConditionValue: SearchableByURL { }
+extension EncounterConditionValue: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .encounterConditionValue
+    }
+}

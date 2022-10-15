@@ -135,7 +135,7 @@ public extension PokeAPI {
     /// - parameter limit: The max number of results to get.
     /// - parameter offset: The offset for the page.
     /// - returns: A NamedAPIResourceList containing the first 0 ..< limit values.
-    func getResourceList(_ endpoint: PokeAPIEndpoint, limit: Int, offset: Int) async throws -> NamedAPIResourceList {
+    internal func getResourceList(_ endpoint: PokeAPIEndpoint, limit: Int, offset: Int) async throws -> NamedAPIResourceList {
         logger.debug("Starting to get resource list.")
         
         var urlComponents = URLComponents()
@@ -182,43 +182,10 @@ public extension PokeAPI {
         }
     }
     
-    /// Returns a NamedAPIResourceList from the given url.
-    /// - returns: A NamedAPIResourceList.
-    func getResourceList(from url: URL) async throws -> NamedAPIResourceList {
-        let cacheKey = url.relativeString
-        if let data = cache[cacheKey] {
-            do {
-                let decodedResourceList = try decoder.decode(NamedAPIResourceList.self, from: data)
-                return decodedResourceList
-            } catch let error as DecodingError {
-                throw PokeAPIError.decodingError(error: error)
-            }
-        }
-        
-        do {
-            let (data, urlResponse) = try await urlSession.data(from: url)
-            if let httpResponse = urlResponse as? HTTPURLResponse,
-               !validStatusCode(httpResponse.statusCode)
-            {
-                throw PokeAPIError.invalidServerResponse(code: httpResponse.statusCode)
-            }
-            
-            let decodedData = try decoder.decode(NamedAPIResourceList.self, from: data)
-            if shouldCacheResults {
-                cache[cacheKey] = data
-            }
-            return decodedData
-        } catch let error as DecodingError {
-            throw PokeAPIError.decodingError(error: error)
-        } catch {
-            throw error
-        }
-    }
-    
     /// Gets the items from a given resource list
     /// - parameter resourceList: The NamedAPIResourceList to get the items from.
     /// - returns: A set of items.
-    func getItems<T>(from resourceList: NamedAPIResourceList) async throws -> Set<T>
+    internal func getItems<T>(from resourceList: NamedAPIResourceList) async throws -> Set<T>
         where T: Codable & Hashable & SearchableByURL
     {
         try await withThrowingTaskGroup(of: T.self) { group in
@@ -235,7 +202,7 @@ public extension PokeAPI {
         }
     }
     
-    /// Filteres the name given to match what pokeapi expects as valid input.
+    /// Filters the name given to match what pokeapi expects as valid input.
     ///
     /// Removes trailing white spaces, replaces all spaces in-between words with a hyphen, and
     /// lowercases the string.
@@ -308,5 +275,38 @@ private extension PokeAPI {
         
         logger.debug("Successfully got data with url: \(url).")
         return data
+    }
+
+    /// Returns a NamedAPIResourceList from the given url.
+    /// - returns: A NamedAPIResourceList.
+    func getResourceList(from url: URL) async throws -> NamedAPIResourceList {
+        let cacheKey = url.relativeString
+        if let data = cache[cacheKey] {
+            do {
+                let decodedResourceList = try decoder.decode(NamedAPIResourceList.self, from: data)
+                return decodedResourceList
+            } catch let error as DecodingError {
+                throw PokeAPIError.decodingError(error: error)
+            }
+        }
+        
+        do {
+            let (data, urlResponse) = try await urlSession.data(from: url)
+            if let httpResponse = urlResponse as? HTTPURLResponse,
+               !validStatusCode(httpResponse.statusCode)
+            {
+                throw PokeAPIError.invalidServerResponse(code: httpResponse.statusCode)
+            }
+            
+            let decodedData = try decoder.decode(NamedAPIResourceList.self, from: data)
+            if shouldCacheResults {
+                cache[cacheKey] = data
+            }
+            return decodedData
+        } catch let error as DecodingError {
+            throw PokeAPIError.decodingError(error: error)
+        } catch {
+            throw error
+        }
     }
 }

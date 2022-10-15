@@ -38,4 +38,8 @@ public extension Version {
     }
 }
 
-extension Version: SearchableByURL { }
+extension Version: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .version
+    }
+}

@@ -48,4 +48,8 @@ public extension Nature {
     }
 }
 
-extension Nature: SearchableByURL { }
+extension Nature: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .nature
+    }
+}

@@ -38,4 +38,8 @@ public extension EggGroup {
     }
 }
 
-extension EggGroup: SearchableByURL { }
+extension EggGroup: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .eggGroup
+    }
+}

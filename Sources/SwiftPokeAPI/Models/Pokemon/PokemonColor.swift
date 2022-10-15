@@ -38,4 +38,8 @@ public extension PokemonColor {
     }
 }
 
-extension PokemonColor: SearchableByURL { }
+extension PokemonColor: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokemonColor
+    }
+}

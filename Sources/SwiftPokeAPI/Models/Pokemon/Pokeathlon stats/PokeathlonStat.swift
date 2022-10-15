@@ -38,4 +38,8 @@ public extension PokeathlonStat {
     }
 }
 
-extension PokeathlonStat: SearchableByURL { }
+extension PokeathlonStat: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokeathlonStat
+    }
+}

@@ -40,4 +40,8 @@ public extension BerryFlavor {
     }
 }
 
-extension BerryFlavor: SearchableByURL { }
+extension BerryFlavor: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .berryFlavor
+    }
+}

@@ -86,4 +86,8 @@ public extension PokemonSpecies {
     }
 }
 
-extension PokemonSpecies: SearchableByURL { }
+extension PokemonSpecies: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokemonSpecies
+    }
+}

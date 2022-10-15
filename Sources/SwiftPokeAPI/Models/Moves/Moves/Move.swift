@@ -79,4 +79,8 @@ public extension Move {
     }
 }
 
-extension Move: SearchableByURL { }
+extension Move: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .move
+    }
+}

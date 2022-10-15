@@ -38,4 +38,8 @@ public extension MoveCategory {
     }
 }
 
-extension MoveCategory: SearchableByURL { }
+extension MoveCategory: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .moveCategory
+    }
+}

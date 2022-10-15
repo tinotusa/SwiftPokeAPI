@@ -38,4 +38,8 @@ public extension PalParkArea {
     }
 }
 
-extension PalParkArea: SearchableByURL { }
+extension PalParkArea: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .palParkArea
+    }
+}

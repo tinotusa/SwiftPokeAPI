@@ -40,4 +40,8 @@ public extension PokemonShape {
     }
 }
 
-extension PokemonShape: SearchableByURL { }
+extension PokemonShape: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokemonShape
+    }
+}

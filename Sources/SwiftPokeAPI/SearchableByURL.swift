@@ -8,5 +8,6 @@
 import Foundation
 
 public protocol SearchableByURL {
+    static var endpoint: PokeAPIEndpoint { get }
     init(_ url: URL) async throws
 }

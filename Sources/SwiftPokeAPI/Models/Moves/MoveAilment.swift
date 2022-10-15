@@ -38,4 +38,8 @@ public extension MoveAilment {
     }
 }
 
-extension MoveAilment: SearchableByURL { }
+extension MoveAilment: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .moveAilment
+    }
+}

@@ -48,4 +48,8 @@ public extension Generation {
     }
 }
 
-extension Generation: SearchableByURL { }
+extension Generation: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .generation
+    }
+}

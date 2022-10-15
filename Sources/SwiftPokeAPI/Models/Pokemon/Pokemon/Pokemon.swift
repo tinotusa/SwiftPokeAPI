@@ -66,4 +66,8 @@ public extension Pokemon {
     }
 }
 
-extension Pokemon: SearchableByURL { }
+extension Pokemon: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokemon
+    }
+}

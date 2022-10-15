@@ -40,4 +40,8 @@ public extension ItemAttribute {
     }
 }
 
-extension ItemAttribute: SearchableByURL { }
+extension ItemAttribute: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .itemAttribute
+    }
+}

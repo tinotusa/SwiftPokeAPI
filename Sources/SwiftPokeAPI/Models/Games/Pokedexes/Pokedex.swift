@@ -46,4 +46,8 @@ public extension Pokedex {
     }
 }
 
-extension Pokedex: SearchableByURL { }
+extension Pokedex: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokedex
+    }
+}

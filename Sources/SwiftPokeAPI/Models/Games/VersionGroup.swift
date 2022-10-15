@@ -46,4 +46,8 @@ public extension VersionGroup {
     }
 }
 
-extension VersionGroup: SearchableByURL { }
+extension VersionGroup: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .versionGroup
+    }
+}

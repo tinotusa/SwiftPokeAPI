@@ -38,4 +38,8 @@ public extension ContestType {
     }
 }
 
-extension ContestType: SearchableByURL { }
+extension ContestType: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .contestType
+    }
+}

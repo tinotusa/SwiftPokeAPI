@@ -44,4 +44,8 @@ public extension Region {
     }
 }
 
-extension Region: SearchableByURL { }
+extension Region: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .region
+    }
+}

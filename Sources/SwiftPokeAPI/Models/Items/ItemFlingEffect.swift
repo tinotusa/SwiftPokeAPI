@@ -38,4 +38,8 @@ public extension ItemFlingEffect {
     }
 }
 
-extension ItemFlingEffect: SearchableByURL { }
+extension ItemFlingEffect: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .itemFlingEffect
+    }
+}

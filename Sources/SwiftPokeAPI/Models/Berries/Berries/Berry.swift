@@ -51,4 +51,8 @@ public extension Berry {
     }
 }
 
-extension Berry: SearchableByURL { }
+extension Berry: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .berry
+    }
+}

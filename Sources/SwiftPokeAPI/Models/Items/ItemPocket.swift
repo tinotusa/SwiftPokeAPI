@@ -38,4 +38,8 @@ public extension ItemPocket {
     }
 }
 
-extension ItemPocket: SearchableByURL { }
+extension ItemPocket: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .itemPocket
+    }
+}

@@ -39,4 +39,8 @@ public extension Ability {
     }
 }
 
-extension Ability: SearchableByURL { }
+extension Ability: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .abilities
+    }
+}

@@ -44,4 +44,8 @@ public extension Language {
     }
 }
 
-extension Language: SearchableByURL { }
+extension Language: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .language
+    }
+}

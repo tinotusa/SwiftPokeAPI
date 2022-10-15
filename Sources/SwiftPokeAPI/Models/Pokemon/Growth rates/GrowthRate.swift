@@ -42,4 +42,8 @@ public extension GrowthRate {
     }
 }
 
-extension GrowthRate: SearchableByURL { }
+extension GrowthRate: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .growthRate
+    }
+}

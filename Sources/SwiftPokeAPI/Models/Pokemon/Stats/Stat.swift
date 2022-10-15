@@ -48,4 +48,8 @@ public extension Stat {
     }
 }
 
-extension Stat: SearchableByURL { }
+extension Stat: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .stat
+    }
+}

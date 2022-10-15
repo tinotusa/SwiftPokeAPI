@@ -38,4 +38,8 @@ public extension EvolutionTrigger {
     }
 }
 
-extension EvolutionTrigger: SearchableByURL { }
+extension EvolutionTrigger: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .evolutionTrigger
+    }
+}

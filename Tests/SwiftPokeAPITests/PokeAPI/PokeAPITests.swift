@@ -62,17 +62,6 @@ final class PokeAPITests: XCTestCase {
         }
     }
     
-    func testGetItems() async throws {
-        do {
-            let limit = 20
-            let pokemonResourceList = try await NamedAPIResourceList(.pokemon, limit: limit)
-            let pokemon: Set<Pokemon> = try await pokeAPI.getItems(from: pokemonResourceList)
-            XCTAssertTrue(pokemon.count <= limit)
-        } catch {
-            XCTFail("Error test was supposed to pass. \(error)")
-        }
-    }
-    
     // MARK: - Cache tests
     func testCacheAddsData() async {
         do {

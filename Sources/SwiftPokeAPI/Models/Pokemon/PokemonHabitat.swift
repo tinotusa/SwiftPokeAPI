@@ -38,4 +38,8 @@ public extension PokemonHabitat {
     }
 }
 
-extension PokemonHabitat: SearchableByURL { }
+extension PokemonHabitat: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .pokemonHabitat
+    }
+}

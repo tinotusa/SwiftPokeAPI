@@ -33,4 +33,8 @@ public extension EvolutionChain {
     }
 }
 
-extension EvolutionChain: SearchableByURL { }
+extension EvolutionChain: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .evolutionChain
+    }
+}
