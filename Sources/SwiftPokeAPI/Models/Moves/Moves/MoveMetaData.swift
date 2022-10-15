@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MoveMetaData: Codable, Hashable {
+public struct MoveMetaData: Codable, Hashable { 
     /// The status ailment this move inflicts on its target.
     public let ailment: NamedAPIResource
     /// The category of move this move falls under, e.g. damage or ailment.

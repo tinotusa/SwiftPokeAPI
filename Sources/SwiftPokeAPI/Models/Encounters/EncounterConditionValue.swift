@@ -43,3 +43,9 @@ extension EncounterConditionValue: SearchableByURL {
         .encounterConditionValue
     }
 }
+
+extension EncounterConditionValue: Comparable {
+    public static func < (lhs: EncounterConditionValue, rhs: EncounterConditionValue) -> Bool {
+        lhs.id < rhs.id
+    }
+}

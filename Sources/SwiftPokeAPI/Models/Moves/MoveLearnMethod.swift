@@ -45,3 +45,9 @@ extension MoveLearnMethod: SearchableByURL {
         .moveLearnMethod
     }
 }
+
+extension MoveLearnMethod: Comparable {
+    public static func < (lhs: MoveLearnMethod, rhs: MoveLearnMethod) -> Bool {
+        lhs.id < rhs.id
+    }
+}

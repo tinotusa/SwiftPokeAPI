@@ -43,3 +43,9 @@ extension EncounterMethod: SearchableByURL {
         .encounterMethod
     }
 }
+
+extension EncounterMethod: Comparable {
+    public static func < (lhs: EncounterMethod, rhs: EncounterMethod) -> Bool {
+        lhs.id < rhs.id
+    }
+}

@@ -53,3 +53,9 @@ extension Nature: SearchableByURL {
         .nature
     }
 }
+
+extension Nature: Comparable {
+    public static func < (lhs: Nature, rhs: Nature) -> Bool {
+        lhs.id < rhs.id
+    }
+}

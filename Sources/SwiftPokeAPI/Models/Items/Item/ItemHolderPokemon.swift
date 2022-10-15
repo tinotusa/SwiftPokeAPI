@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ItemHolderPokemon: Codable, Hashable {
+public struct ItemHolderPokemon: Codable, Hashable { 
     /// The Pokémon that holds this item.
     public let pokemon: NamedAPIResource
     /// The details for the version that this item is held in by the Pokémon.

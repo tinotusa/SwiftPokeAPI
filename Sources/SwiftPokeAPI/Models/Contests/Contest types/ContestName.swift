@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ContestName: Codable, Hashable {
+public struct ContestName: Codable, Hashable { 
     /// The name for this contest.
     public let name: String
     /// The color associated with this contest's name.

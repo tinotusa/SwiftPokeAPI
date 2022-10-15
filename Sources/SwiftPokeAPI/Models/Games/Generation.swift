@@ -53,3 +53,9 @@ extension Generation: SearchableByURL {
         .generation
     }
 }
+
+extension Generation: Comparable {
+    public static func < (lhs: Generation, rhs: Generation) -> Bool {
+        lhs.id < rhs.id
+    }
+}

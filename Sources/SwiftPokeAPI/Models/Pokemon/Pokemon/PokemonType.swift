@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonType: Codable, Hashable {
+public struct PokemonType: Codable, Hashable { 
     /// The order the Pokémon's types are listed in.
     public let slot: Int
     /// The type the referenced Pokémon has.

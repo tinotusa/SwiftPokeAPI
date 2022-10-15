@@ -65,3 +65,9 @@ extension Item: SearchableByURL {
         .item
     }
 }
+
+extension Item: Comparable {
+    public static func < (lhs: Item, rhs: Item) -> Bool {
+        lhs.id < rhs.id
+    }
+}

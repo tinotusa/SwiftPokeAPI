@@ -43,3 +43,9 @@ extension BerryFirmness: SearchableByURL {
         .berryFirmness
     }
 }
+
+extension BerryFirmness: Comparable {
+    public static func < (lhs: BerryFirmness, rhs: BerryFirmness) -> Bool {
+        lhs.id < rhs.id
+    }
+}

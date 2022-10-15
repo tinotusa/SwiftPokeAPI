@@ -38,3 +38,10 @@ extension EvolutionChain: SearchableByURL {
         .evolutionChain
     }
 }
+
+extension EvolutionChain: Comparable {
+    public static func < (lhs: EvolutionChain, rhs: EvolutionChain) -> Bool {
+        lhs.id < rhs.id
+    }
+}
+    

@@ -45,3 +45,9 @@ extension MoveDamageClass: SearchableByURL {
         .moveDamageClass
     }
 }
+
+extension MoveDamageClass: Comparable {
+    public static func < (lhs: MoveDamageClass, rhs: MoveDamageClass) -> Bool {
+        lhs.id < rhs.id
+    }
+}

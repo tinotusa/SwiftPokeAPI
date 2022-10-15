@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VersionGroupFlavorText: Codable, Hashable {
+public struct VersionGroupFlavorText: Codable, Hashable { 
     /// The localized name for an API resource in a specific language.
     public let text: String
     /// The language this name is in.

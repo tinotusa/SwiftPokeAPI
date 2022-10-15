@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PalParkEncounterSpecies: Codable, Hashable {
+public struct PalParkEncounterSpecies: Codable, Hashable { 
     /// The base score given to the player when this Pokémon is caught during a pal park run.
     public let baseScore: Int
     /// The base rate for encountering this Pokémon in this pal park area.

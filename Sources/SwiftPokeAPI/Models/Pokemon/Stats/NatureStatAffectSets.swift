@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NatureStatAffectSets: Codable, Hashable {
+public struct NatureStatAffectSets: Codable, Hashable { 
     /// A list of natures and how they change the referenced stat.
     public let increase: [NamedAPIResource]
     /// A list of nature sand how they change the referenced stat.

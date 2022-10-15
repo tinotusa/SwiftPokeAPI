@@ -45,3 +45,9 @@ extension PokemonShape: SearchableByURL {
         .pokemonShape
     }
 }
+
+extension PokemonShape: Comparable {
+    public static func < (lhs: PokemonShape, rhs: PokemonShape) -> Bool {
+        lhs.id < rhs.id
+    }
+}

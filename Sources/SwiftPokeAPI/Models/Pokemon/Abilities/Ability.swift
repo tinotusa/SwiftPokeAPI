@@ -44,3 +44,9 @@ extension Ability: SearchableByURL {
         .abilities
     }
 }
+
+extension Ability: Comparable {
+    public static func < (lhs: Ability, rhs: Ability) -> Bool {
+        lhs.id < rhs.id
+    }
+}

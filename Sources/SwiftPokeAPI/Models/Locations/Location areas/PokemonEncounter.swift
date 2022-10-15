@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonEncounter: Codable, Hashable {
+public struct PokemonEncounter: Codable, Hashable { 
     /// The Pokémon being encountered.
     public let pokemon: NamedAPIResource
     /// A list of versions and encounters with Pokémon that might happen in the referenced location area.

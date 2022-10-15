@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VersionGameIndex: Codable, Hashable {
+public struct VersionGameIndex: Codable, Hashable { 
     /// The internal id of an API resource within game data.
     public let gameIndex: Int
     /// The version relevent to this game index.

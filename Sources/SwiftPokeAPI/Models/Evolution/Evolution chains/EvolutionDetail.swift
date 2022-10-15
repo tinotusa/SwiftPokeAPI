@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EvolutionDetail: Codable, Hashable {
+public struct EvolutionDetail: Codable, Hashable { 
     /// The item required to cause evolution this into Pokémon species.
     public let item: NamedAPIResource?
     /// The type of event that triggers evolution into this Pokémon species.

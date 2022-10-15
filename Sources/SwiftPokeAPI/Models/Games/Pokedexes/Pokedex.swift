@@ -51,3 +51,9 @@ extension Pokedex: SearchableByURL {
         .pokedex
     }
 }
+
+extension Pokedex: Comparable {
+    public static func < (lhs: Pokedex, rhs: Pokedex) -> Bool {
+        lhs.id < rhs.id
+    }
+}

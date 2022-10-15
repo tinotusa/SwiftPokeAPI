@@ -24,3 +24,9 @@ public extension Characteristic {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .characteristic, name: "\(id)")
     }
 }
+
+extension Characteristic: Comparable {
+    public static func < (lhs: Characteristic, rhs: Characteristic) -> Bool {
+        lhs.id < rhs.id
+    }
+}

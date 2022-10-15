@@ -43,3 +43,9 @@ extension ItemPocket: SearchableByURL {
         .itemPocket
     }
 }
+
+extension ItemPocket: Comparable {
+    public static func < (lhs: ItemPocket, rhs: ItemPocket) -> Bool {
+        lhs.id < rhs.id
+    }
+}

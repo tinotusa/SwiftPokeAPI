@@ -43,3 +43,9 @@ extension ItemFlingEffect: SearchableByURL {
         .itemFlingEffect
     }
 }
+
+extension ItemFlingEffect: Comparable {
+    public static func < (lhs: ItemFlingEffect, rhs: ItemFlingEffect) -> Bool {
+        lhs.id < rhs.id
+    }
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ItemHolderPokemonVersionDetail: Codable, Hashable {
+public struct ItemHolderPokemonVersionDetail: Codable, Hashable { 
     /// How often this Pokémon holds this item in this version.
     public let rarity: Int
     /// The version that this item is held in by the Pokémon.

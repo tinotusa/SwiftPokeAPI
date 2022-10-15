@@ -49,3 +49,9 @@ extension Region: SearchableByURL {
         .region
     }
 }
+
+extension Region: Comparable {
+    public static func < (lhs: Region, rhs: Region) -> Bool {
+        lhs.id < rhs.id
+    }
+}

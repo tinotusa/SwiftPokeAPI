@@ -84,3 +84,9 @@ extension Move: SearchableByURL {
         .move
     }
 }
+
+extension Move: Comparable {
+    public static func < (lhs: Move, rhs: Move) -> Bool {
+        lhs.id < rhs.id
+    }
+}

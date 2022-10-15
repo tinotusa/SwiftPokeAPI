@@ -49,3 +49,9 @@ extension Language: SearchableByURL {
         .language
     }
 }
+
+extension Language: Comparable {
+    public static func < (lhs: Language, rhs: Language) -> Bool {
+        lhs.id < rhs.id
+    }
+}

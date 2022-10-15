@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Genus: Codable, Hashable {
+public struct Genus: Codable, Hashable { 
     /// The localized genus for the referenced Pokémon species.
     public let genus: String
     /// The language this genus is in.

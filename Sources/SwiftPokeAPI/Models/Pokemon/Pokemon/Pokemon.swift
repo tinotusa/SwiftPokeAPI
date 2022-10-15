@@ -71,3 +71,9 @@ extension Pokemon: SearchableByURL {
         .pokemon
     }
 }
+
+extension Pokemon: Comparable {
+    public static func < (lhs: Pokemon, rhs: Pokemon) -> Bool {
+        lhs.id < rhs.id
+    }
+}

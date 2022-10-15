@@ -53,3 +53,9 @@ extension Stat: SearchableByURL {
         .stat
     }
 }
+
+extension Stat: Comparable {
+    public static func < (lhs: Stat, rhs: Stat) -> Bool {
+        lhs.id < rhs.id
+    }
+}

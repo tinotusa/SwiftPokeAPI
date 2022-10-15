@@ -45,3 +45,9 @@ extension BerryFlavor: SearchableByURL {
         .berryFlavor
     }
 }
+
+extension BerryFlavor: Comparable {
+    public static func < (lhs: BerryFlavor, rhs: BerryFlavor) -> Bool {
+        lhs.id < rhs.id
+    }
+}

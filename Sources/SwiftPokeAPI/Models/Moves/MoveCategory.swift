@@ -43,3 +43,9 @@ extension MoveCategory: SearchableByURL {
         .moveCategory
     }
 }
+
+extension MoveCategory: Comparable {
+    public static func < (lhs: MoveCategory, rhs: MoveCategory) -> Bool {
+        lhs.id < rhs.id
+    }
+}

@@ -43,3 +43,9 @@ extension PokeathlonStat: SearchableByURL {
         .pokeathlonStat
     }
 }
+
+extension PokeathlonStat: Comparable {
+    public static func < (lhs: PokeathlonStat, rhs: PokeathlonStat) -> Bool {
+        lhs.id < rhs.id
+    }
+}

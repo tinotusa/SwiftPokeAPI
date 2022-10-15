@@ -47,3 +47,9 @@ extension Location: SearchableByURL {
         .location
     }
 }
+
+extension Location: Comparable {
+    public static func < (lhs: Location, rhs: Location) -> Bool {
+        lhs.id < rhs.id
+    }
+}

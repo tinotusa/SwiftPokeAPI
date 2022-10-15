@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ChainLink: Codable, Hashable {
+public struct ChainLink: Codable, Hashable { 
     /// Whether or not this link is for a baby Pokémon.
     /// This would only ever be true on the base link.
     public let isBaby: Bool

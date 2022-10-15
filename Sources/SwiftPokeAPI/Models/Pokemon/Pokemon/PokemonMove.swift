@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonMove: Codable, Hashable {
+public struct PokemonMove: Codable, Hashable { 
     /// The move the Pokémon can learn.
     public let move: NamedAPIResource
     /// The details of the version in which the Pokémon can learn the move.

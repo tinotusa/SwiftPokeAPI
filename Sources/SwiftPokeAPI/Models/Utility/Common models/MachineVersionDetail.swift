@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MachineVersionDetail: Codable, Hashable {
+public struct MachineVersionDetail: Codable, Hashable { 
     /// The machine that teaches a move from an item.
     public let machine: APIResource
     /// The version group of this specific machine.

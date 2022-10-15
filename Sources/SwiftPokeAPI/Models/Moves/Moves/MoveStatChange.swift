@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MoveStatChange: Codable, Hashable {
+public struct MoveStatChange: Codable, Hashable { 
     /// The amount of change.
     public let change: Int
     /// The stat being affected.

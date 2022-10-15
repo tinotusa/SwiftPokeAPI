@@ -41,3 +41,9 @@ extension MoveBattleStyle: SearchableByURL {
         .moveBattleStyle
     }
 }
+
+extension MoveBattleStyle: Comparable {
+    public static func < (lhs: MoveBattleStyle, rhs: MoveBattleStyle) -> Bool {
+        lhs.id < rhs.id
+    }
+}

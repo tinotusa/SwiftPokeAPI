@@ -43,3 +43,9 @@ extension PalParkArea: SearchableByURL {
         .palParkArea
     }
 }
+
+extension PalParkArea: Comparable {
+    public static func < (lhs: PalParkArea, rhs: PalParkArea) -> Bool {
+        lhs.id < rhs.id
+    }
+}

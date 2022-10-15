@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NatureStatChange: Codable, Hashable {
+public struct NatureStatChange: Codable, Hashable { 
     /// The amount of change.
     public let maxChange: Int
     /// The stat being affected.

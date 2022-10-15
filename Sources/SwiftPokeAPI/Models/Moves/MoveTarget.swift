@@ -45,3 +45,9 @@ extension MoveTarget: SearchableByURL {
         .moveTarget
     }
 }
+
+extension MoveTarget: Comparable {
+    public static func < (lhs: MoveTarget, rhs: MoveTarget) -> Bool {
+        lhs.id < rhs.id
+    }
+}

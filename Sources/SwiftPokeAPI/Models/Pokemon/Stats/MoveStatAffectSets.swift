@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MoveStatAffectSets: Codable, Hashable {
+public struct MoveStatAffectSets: Codable, Hashable { 
     /// A list of moves and how they change the referenced stat.
     public let increase: [MoveStatAffect]
     /// A list of moves and how they change the referenced stat.

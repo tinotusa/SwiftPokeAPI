@@ -43,3 +43,9 @@ extension Gender: SearchableByURL {
         .gender
     }
 }
+
+extension Gender: Comparable {
+    public static func < (lhs: Gender, rhs: Gender) -> Bool {
+        lhs.id < rhs.id
+    }
+}

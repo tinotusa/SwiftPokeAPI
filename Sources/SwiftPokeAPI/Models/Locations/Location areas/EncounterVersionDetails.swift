@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EncounterVersionDetails: Codable, Hashable {
+public struct EncounterVersionDetails: Codable, Hashable { 
     /// The chance of an encounter to occur.
     public let rate: Int
     /// The version of the game in which the encounter can occur with the given chance.

@@ -25,3 +25,9 @@ public extension SuperContestEffect {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .superContestEffect, name: "\(id)")
     }
 }
+
+extension SuperContestEffect: Comparable {
+    public static func < (lhs: SuperContestEffect, rhs: SuperContestEffect) -> Bool {
+        lhs.id < rhs.id
+    }
+}

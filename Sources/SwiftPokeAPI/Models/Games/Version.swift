@@ -43,3 +43,9 @@ extension Version: SearchableByURL {
         .version
     }
 }
+
+extension Version: Comparable {
+    public static func < (lhs: Version, rhs: Version) -> Bool {
+        lhs.id < rhs.id
+    }
+}

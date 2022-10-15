@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PastMoveStatValues: Codable, Hashable {
+public struct PastMoveStatValues: Codable, Hashable { 
     /// The percent value of how likely this move is to be successful.
     public let accuracy: Int?
     /// The percent value of how likely it is this moves effect will take effect.

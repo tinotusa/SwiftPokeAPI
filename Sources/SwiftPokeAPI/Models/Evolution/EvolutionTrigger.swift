@@ -43,3 +43,9 @@ extension EvolutionTrigger: SearchableByURL {
         .evolutionTrigger
     }
 }
+
+extension EvolutionTrigger: Comparable {
+    public static func < (lhs: EvolutionTrigger, rhs: EvolutionTrigger) -> Bool {
+        lhs.id < rhs.id
+    }
+}

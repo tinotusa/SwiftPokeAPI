@@ -43,3 +43,9 @@ extension EggGroup: SearchableByURL {
         .eggGroup
     }
 }
+
+extension EggGroup: Comparable {
+    public static func < (lhs: EggGroup, rhs: EggGroup) -> Bool {
+        lhs.id < rhs.id
+    }
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ContestType: Codable, Identifiable, Hashable {
+public struct ContestType: Codable, Identifiable, Hashable { 
     /// The identifier for this resource.
     public let id: Int
     /// The name for this resource.
@@ -41,5 +41,11 @@ public extension ContestType {
 extension ContestType: SearchableByURL {
     public static var endpoint: PokeAPIEndpoint {
         .contestType
+    }
+}
+
+extension ContestType: Comparable {
+    public static func < (lhs: ContestType, rhs: ContestType) -> Bool {
+        lhs.id < rhs.id
     }
 }

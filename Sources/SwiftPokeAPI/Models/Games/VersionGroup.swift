@@ -51,3 +51,9 @@ extension VersionGroup: SearchableByURL {
         .versionGroup
     }
 }
+
+extension VersionGroup: Comparable {
+    public static func < (lhs: VersionGroup, rhs: VersionGroup) -> Bool {
+        lhs.id < rhs.id
+    }
+}

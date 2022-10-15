@@ -43,3 +43,9 @@ extension MoveAilment: SearchableByURL {
         .moveAilment
     }
 }
+
+extension MoveAilment: Comparable {
+    public static func < (lhs: MoveAilment, rhs: MoveAilment) -> Bool {
+        lhs.id < rhs.id
+    }
+}

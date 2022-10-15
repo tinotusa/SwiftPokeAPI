@@ -47,3 +47,9 @@ extension GrowthRate: SearchableByURL {
         .growthRate
     }
 }
+
+extension GrowthRate: Comparable {
+    public static func < (lhs: GrowthRate, rhs: GrowthRate) -> Bool {
+        lhs.id < rhs.id
+    }
+}

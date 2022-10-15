@@ -45,3 +45,9 @@ extension ItemAttribute: SearchableByURL {
         .itemAttribute
     }
 }
+
+extension ItemAttribute: Comparable {
+    public static func < (lhs: ItemAttribute, rhs: ItemAttribute) -> Bool {
+        lhs.id < rhs.id
+    }
+}

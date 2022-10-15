@@ -43,3 +43,9 @@ extension PokemonColor: SearchableByURL {
         .pokemonColor
     }
 }
+
+extension PokemonColor: Comparable {
+    public static func < (lhs: PokemonColor, rhs: PokemonColor) -> Bool {
+        lhs.id < rhs.id
+    }
+}

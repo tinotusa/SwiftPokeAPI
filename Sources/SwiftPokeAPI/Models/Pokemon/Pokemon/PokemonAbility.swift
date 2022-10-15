@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonAbility: Codable, Hashable {
+public struct PokemonAbility: Codable, Hashable { 
     /// Whether or not this is a hidden ability.
     public let isHidden: Bool
     /// The slot this ability occupies in this Pokémon species.

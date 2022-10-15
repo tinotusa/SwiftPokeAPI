@@ -64,3 +64,9 @@ extension PokemonForm: SearchableByURL {
         .pokemonForm
     }
 }
+
+extension PokemonForm: Comparable {
+    public static func < (lhs: PokemonForm, rhs: PokemonForm) -> Bool {
+        lhs.id < rhs.id
+    }
+}

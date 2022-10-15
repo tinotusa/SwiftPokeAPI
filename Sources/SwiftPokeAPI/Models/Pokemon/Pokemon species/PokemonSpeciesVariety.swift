@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PokemonSpeciesVariety: Codable, Hashable {
+public struct PokemonSpeciesVariety: Codable, Hashable { 
     /// Whether this variety is the default variety.
     public let isDefault: Bool
     /// The Pokémon variety.
