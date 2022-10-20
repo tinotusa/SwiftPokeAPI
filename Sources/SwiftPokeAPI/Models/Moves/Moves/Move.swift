@@ -44,7 +44,7 @@ public struct Move: Codable, Identifiable, Hashable {
     /// A list of the machines that teach this move.
     public let machines: [MachineVersionDetail]
     /// Metadata about this move
-    public let meta: MoveMetaData
+    public let meta: MoveMetaData?
     /// The name of this resource listed in different languages.
     public let names: [Name]
     /// A list of move resource value changes across version groups of the game.
