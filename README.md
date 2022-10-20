@@ -31,35 +31,15 @@ import SwiftPokeAPI
 
 // in some async context
 do {
-    let pokemonList = try await NamedAPIResourceList(.pokemon, limit: 20)
-
-    // getting pokemon in resource list
-    var pokemonArray = await withTaskGroup(of: Pokemon?.self) { group in
-        for result in pokemonList.results {
-            group.addTask {
-                do {
-                    guard let name = result.name {
-                        print("Result has no name. Use the url instead.")
-                        return nil
-                    }
-                    let pokemon = try await Pokemon(name)
-                    return pokemon
-                } catch {
-                    print(error.localizedDescription)
-                }
-                return nil
-            }
-        }
-        var tempPokemon = [Pokemon]()
-        for await pokemon in group {
-            guard let pokemon else { continue }
-            tempPokemon.append(pokemon)
-        }
-        return tempPokemon
+    let resource = try await Resource<Pokemon>(limit: 20)
+    let pokemonSet = resource.items
+    let nextURL = resource.next
+    if let nextURL {
+        print("The next url is \(nextURL)")
     }
-    
-    for pokemon in pokemonArray {
-        print(pokemon.species.name)
+
+    for pokemon in pokemonSet {
+        print(pokemon.name)
     }
 } catch {
     print(error.localizedDescription)
