@@ -9,16 +9,6 @@ import XCTest
 @testable import SwiftPokeAPI
 
 final class MachineTests: XCTestCase {
-    private var pokeAPI: PokeAPI!
-    
-    override func setUpWithError() throws {
-        pokeAPI = PokeAPI.shared
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testInitWithValidID() async {
         let id = 1
         do {
@@ -38,6 +28,16 @@ final class MachineTests: XCTestCase {
             XCTAssertEqual(code, 404)
         } catch {
             XCTFail("Failed to get location with id: \(id).\n\(error)")
+        }
+    }
+    
+    func testInitWithValidURL() async {
+        do {
+            let url = URL(string: "https://pokeapi.co/api/v2/machine/1")!
+            let machine = try await Machine(url)
+            XCTAssertEqual(machine.id, 1)
+        } catch {
+            XCTFail("Error test is supposed to pass. \(error)")
         }
     }
     

@@ -24,6 +24,12 @@ public extension Machine {
     init(_ id: Int) async throws {
         self = try await PokeAPI.shared.getData(ofType: Self.self, endpoint: .machine, name: "\(id)")
     }
+    
+    /// Fetchs a Machine from pokeapi.
+    /// - parameter url: The url of the Machine.
+    init(_ url: URL) async throws {
+        self = try await PokeAPI.shared.getData(ofType: Self.self, url: url)
+    }
 }
 
 extension Machine: Comparable {
