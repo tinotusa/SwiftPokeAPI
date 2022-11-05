@@ -247,6 +247,14 @@ public extension PokeAPI {
         get { cache.countLimit }
         set { cache.countLimit = newValue }
     }
+    
+    /// Returns the size of the cache in bytes.
+    ///
+    /// - parameter fileManager: The file manager to use.
+    /// - returns: The size of the file in bytes.
+    func cacheSize(fileManager: FileManager = .default) throws -> UInt64 {
+        return try cache.size(filename: cacheFilename, fileManager: fileManager)
+    }
 }
 
 private extension PokeAPI {
