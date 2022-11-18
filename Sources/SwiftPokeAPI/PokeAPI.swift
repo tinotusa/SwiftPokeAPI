@@ -220,13 +220,17 @@ public extension PokeAPI {
     /// Saves the in memory cache to disk.
     /// - parameter fileManager: The file manager to use.
     func saveCacheToDisk(fileManager: FileManager = .default) throws {
-        try self.cache.saveCacheToDisk(withName: cacheFilename, fileManager: fileManager)
+        if shouldCacheResults {
+            try self.cache.saveCacheToDisk(withName: cacheFilename, fileManager: fileManager)
+        }
     }
     
     /// Loads the cache from disk.
     /// - parameter fileManager: The file manager to use.
     func loadCacheFromDisk(fileManager: FileManager = .default) throws {
-        try self.cache.loadCacheFromDisk(filename: cacheFilename, fileManager: fileManager)
+        if shouldCacheResults {
+            try self.cache.loadCacheFromDisk(filename: cacheFilename, fileManager: fileManager)
+        }
     }
     
     /// Deletes the cache file on disk.
