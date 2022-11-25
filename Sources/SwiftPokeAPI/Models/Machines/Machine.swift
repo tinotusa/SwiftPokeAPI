@@ -32,6 +32,12 @@ public extension Machine {
     }
 }
 
+extension Machine: SearchableByURL {
+    public static var endpoint: PokeAPIEndpoint {
+        .machine
+    }
+}
+
 extension Machine: Comparable {
     public static func < (lhs: Machine, rhs: Machine) -> Bool {
         lhs.id < rhs.id
