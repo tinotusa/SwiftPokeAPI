@@ -227,10 +227,12 @@ extension Cache: Codable where Key: Codable, Value: Codable {
         let cachesDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         let fileURL = cachesDirectory.appending(path: filename)
         
+        if !fileManager.fileExists(atPath: fileURL.path()) {
+            logger.debug("The file \(filename) doesn't exist.")
+            return
+        }
+        
         do {
-            if !fileManager.fileExists(atPath: fileURL.path()) {
-                throw CacheError.fileDoesNotExist(filename: filename)
-            }
             let data = try Data(contentsOf: fileURL)
             let decodedData = try JSONDecoder().decode(Self.self, from: data)
             
